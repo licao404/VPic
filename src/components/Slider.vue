@@ -18,5 +18,4 @@
   .el-slider__bar, .el-slider__button, .el-slider__button.dragging,
   .el-slider__button.hover, .el-slider__button:hover { background-color: #7D5CFF; };
   .el-input-number__decrease:hover, .el-input-number__increase:hover { color: #7D5CFF; }
-
 </style>
