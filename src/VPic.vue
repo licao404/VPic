@@ -1,13 +1,11 @@
 <template>
   <section id="vpic" class="clearfix">
-    <!-- <img src="./assets/logo.png"> -->
     <div id="vmenu" class="fl">
       <div class="logo"></div>
       <vsidebar></vsidebar>
     </div>
-    <vtoolbar class="fl"></vtoolbar>
-
-    <!--<slider></slider>-->
+    <vtoolbar></vtoolbar>
+    <veditor></veditor>
   </section>
 </template>
 
@@ -15,6 +13,7 @@
     import Vtoolbar from './components/Vtoolbar';
     import Vsidebar from './components/Vsidebar';
     import Slider from './components/Slider';
+    import Veditor from './components/Veditor';
 
     export default {
       name: 'vpic',
@@ -22,6 +21,7 @@
         Vtoolbar,
         Vsidebar,
         Slider,
+        Veditor,
       },
     };
 </script>
