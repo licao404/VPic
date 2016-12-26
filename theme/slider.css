@@ -743,7 +743,7 @@
 
 .el-slider__runway{
     width: 100%;
-    height: 10px;
+    height: 4px;
     margin: 16px 0;
     background-color: #e5e9f2;
     border-radius: 3px;
@@ -795,7 +795,7 @@
 }
 
 .el-slider__bar{
-    height: 10px;
+    height: 4px;
     background-color: #41b883;
     border-top-left-radius: 3px;
     border-bottom-left-radius: 3px;
@@ -874,8 +874,8 @@
 
 .el-slider__stop{
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 4px;
+    height: 4px;
     border-radius: 100%;
     background-color: #c0ccda;
     transform: translateX(-50%);

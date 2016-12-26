@@ -1,35 +1,47 @@
 <template>
-  <section id="vpic">
+  <section id="vpic" class="clearfix">
     <!-- <img src="./assets/logo.png"> -->
-    <vmenu></vmenu>
-    <!-- <slider></slider> -->
+    <div id="vmenu" class="fl">
+      <div class="logo"></div>
+      <vsidebar></vsidebar>
+    </div>
+    <vtoolbar class="fl"></vtoolbar>
+
+    <!--<slider></slider>-->
   </section>
 </template>
 
 <script>
-    import Vmenu from './components/Vmenu';
+    import Vtoolbar from './components/Vtoolbar';
+    import Vsidebar from './components/Vsidebar';
     import Slider from './components/Slider';
 
     export default {
       name: 'vpic',
       components: {
-        Vmenu,
+        Vtoolbar,
+        Vsidebar,
         Slider,
       },
     };
 </script>
 
 <style>
-    html, body{
-      margin: 0;
-      padding: 0;
-      background: #2F3A4C;
-    }
-    #vpic {
-        font-family: 'Avenir', Helvetica, Arial, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-align: center;
-        color: #41b883;
-    }
+    .fl { float: left; }
+    .fr { float: right; }
+    .clearfix:after { content: ''; display: table; clear: both; }
+    ul, li { margin: 0; padding: 0; list-style: none; }
+
+    /* Custom Chrome Scrollbar */
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; margin-right: 5px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background-color: #1F2F3D; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { border-radius: 20px; background-color: rgba(0,0,0,.15); }
+    .custom-scrollbar:hover::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,.25) }
+
+    html, body{ margin: 0; padding: 0; width: 100%; height: 100%; background: #2F3A4C; }
+    /*#2F3A4C*/
+
+    #vpic { position: relative; font-family: 'Avenir', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-align: center; height: 100%; }
+    #vmenu { position: relative; width: 300px; height: 100%; }
+    .logo { position: absolute; left: 0; top: 0; width: 100%; height: 100px; background: url('../static/image/LOGO-s.png') no-repeat center center; }
 </style>
