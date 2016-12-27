@@ -1,10 +1,10 @@
 <template>
-    <div id="veditor" class="fl">
-        <div style="max-width: 900px; display: inline-block;">
+    <div id="veditor">
+        <!--<div style="max-width: 900px; display: inline-block;">-->
             <!-- assign ref property to access the underlying functions -->
             <!-- all cropperjs options should be in kebab-case instead of camelCase -->
             <!-- see http://vuejs.org/guide/components.html#camelCase-vs-kebab-case -->
-            <vue-cropper
+            <!--<vue-cropper
                 ref='cropper'
                 :guides="true"
                 :view-mode="2"
@@ -21,40 +21,49 @@
         <br />
         <button @click="cropImage">Crop Image</button>
         <button @click="rotate">Rotate</button>
-        <button @click="change">Change Image</button>
+        <button @click="change">Change Image</button>-->
+        <vupload></vupload>
     </div>
 </template>
 
 <script>
     import VueCropper from '../../node_modules/vue-cropperjs';
+    import Vupload from './Vupload';
 
     export default {
       name: 'Veditor',
-      components: { VueCropper },
-      data() {
-        return {
-          /* eslint-disable global-require */
-          imgSrc: require('../../static/image/LOGO-b.png'),
-          /* eslint-enable global-require */
-          cropImg: '',
-        };
+      components: {
+        VueCropper,
+        Vupload,
       },
-      methods: {
-        change() {
-          /* eslint-disable global-require */
-          this.imgSrc = require('../../static/image/LOGO-s.png');
-          // rebuild cropperjs with the updated source
-          this.$refs.cropper.replace(require('../../static/image/LOGO-s.png'));
-          /* eslint-enable global-require */
-        },
-        cropImage() {
-          // get image data for post processing, e.g. upload or setting image src
-          this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
-        },
-        rotate() {
-          // guess what this does :)
-          this.$refs.cropper.rotate(90);
-        },
-      },
+      // data() {
+      //   return {
+      //     /* eslint-disable global-require */
+      //     imgSrc: require('../../static/image/test.jpg'),
+      //     /* eslint-enable global-require */
+      //     cropImg: '',
+      //   };
+      // },
+      // methods: {
+      //   change() {
+      //     /* eslint-disable global-require */
+      //     this.imgSrc = require('../../static/image/LOGO-b.png');
+      //     // rebuild cropperjs with the updated source
+      //     this.$refs.cropper.replace(require('../../static/image/LOGO-b.png'));
+      //     /* eslint-enable global-require */
+      //   },
+      //   cropImage() {
+      //     // get image data for post processing, e.g. upload or setting image src
+      //     this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
+      //   },
+      //   rotate() {
+      //     // guess what this does :)
+      //     this.$refs.cropper.rotate(90);
+      //   },
+      // },
     };
 </script>
+
+<style>
+
+</style>

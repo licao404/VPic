@@ -69,7 +69,6 @@
 </script>
 
 <style>
-  #vpic_sidebar { position: absolute; top: 100px; bottom: 0; left: 0; width: 100%; background: #324057; box-shadow: 2px 1px 10px rgba(0, 0, 0, .1); overflow: auto; }
   .el-menu { border-radius: 0; }
   /*.el-menu */
   .el-submenu__title { padding-left: 30px !important; height: 60px; text-align: left; font-size: 18px; }

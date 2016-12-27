@@ -9,6 +9,12 @@
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src"
   },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "node": false
+    }
+  },
   "dependencies": {
     "element-ui": "^1.0.8",
     "vue": "^2.1.0"
