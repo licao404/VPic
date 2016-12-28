@@ -1,14 +1,12 @@
 <template>
-  <div class="block">
-    <el-slider v-model="value2" show-input></el-slider>
-  </div>
+    <el-slider v-model="value2" :min="-50" :max="50"></el-slider>
 </template>
 
 <script>
   export default {
     data() {
       return {
-        value2: 50,
+        value2: 0,
       };
     },
   };

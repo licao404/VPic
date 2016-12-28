@@ -1,10 +1,10 @@
 <template>
   <ul class="action-list fr">
     <li class="fr">
-      <a href="javascript:;" class="J-save save-btn btn"><span class="icon"></span></a>
+      <button class="J-save save-btn btn"><span class="icon"></span></button>
     </li>
     <li class="fr">
-      <a href="javascript:;" class="J-delete delete-btn btn"><span class="icon"></span></a>
+      <button class="J-delete delete-btn btn"><span class="icon"></span></button>
     </li>
   </ul>
 </template>

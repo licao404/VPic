@@ -33,6 +33,7 @@
     .fr { float: right; }
     .clearfix:after { content: ''; display: table; clear: both; }
     ul, li { margin: 0; padding: 0; list-style: none; }
+    button { border: 0; outline: none; cursor: pointer; }
 
     /* Custom Chrome Scrollbar */
     .custom-scrollbar::-webkit-scrollbar { width: 6px; margin-right: 5px; }
