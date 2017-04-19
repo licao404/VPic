@@ -48,7 +48,7 @@
     #vmenu { position: relative; width: 300px; height: 100%; }
     #vpic_sidebar { position: absolute; top: 100px; bottom: 0; left: 0; width: 100%; background: #324057; box-shadow: 2px 1px 10px rgba(0, 0, 0, .1); overflow: auto; }
     #vmain { position: relative; margin-left: 300px; min-width: 800px; height: 100%; }
-    #vtoolbar { width: 100%; height: 70px; background: #324057; box-shadow: 0 2px 10px rgba(0, 0, 0, .1); }
+    #vtoolbar { width: 100%; height: 60px; background: #324057; }
     #veditor { position: absolute; top: 70px; bottom: 0; width: 100%; }
     .logo { position: absolute; left: 0; top: 0; width: 100%; height: 100px; background: url('../static/image/LOGO-s.png') no-repeat center center; }
 </style>

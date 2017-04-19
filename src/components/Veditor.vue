@@ -22,7 +22,7 @@
         <button @click="cropImage">Crop Image</button>
         <button @click="rotate">Rotate</button>
         <button @click="change">Change Image</button>-->
-        <vupload></vupload>
+        <!--<vupload></vupload>-->
     </div>
 </template>
 
@@ -36,31 +36,31 @@
         VueCropper,
         Vupload,
       },
-      // data() {
-      //   return {
-      //     /* eslint-disable global-require */
-      //     imgSrc: require('../../static/image/test.jpg'),
-      //     /* eslint-enable global-require */
-      //     cropImg: '',
-      //   };
-      // },
-      // methods: {
-      //   change() {
-      //     /* eslint-disable global-require */
-      //     this.imgSrc = require('../../static/image/LOGO-b.png');
-      //     // rebuild cropperjs with the updated source
-      //     this.$refs.cropper.replace(require('../../static/image/LOGO-b.png'));
-      //     /* eslint-enable global-require */
-      //   },
-      //   cropImage() {
-      //     // get image data for post processing, e.g. upload or setting image src
-      //     this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
-      //   },
-      //   rotate() {
-      //     // guess what this does :)
-      //     this.$refs.cropper.rotate(90);
-      //   },
-      // },
+        // data() {
+        //   return {
+        //     /* eslint-disable global-require */
+        //     imgSrc: require('../../static/image/test.jpg'),
+        //     /* eslint-enable global-require */
+        //     cropImg: '',
+        //   };
+        // },
+        // methods: {
+        //   change() {
+        //     /* eslint-disable global-require */
+        //     this.imgSrc = require('../../static/image/LOGO-b.png');
+        //     // rebuild cropperjs with the updated source
+        //     this.$refs.cropper.replace(require('../../static/image/LOGO-b.png'));
+        //     /* eslint-enable global-require */
+        //   },
+        //   cropImage() {
+        //     // get image data for post processing, e.g. upload or setting image src
+        //     this.cropImg = this.$refs.cropper.getCroppedCanvas().toDataURL();
+        //   },
+        //   rotate() {
+        //     // guess what this does :)
+        //     this.$refs.cropper.rotate(90);
+        //   },
+        // },
     };
 </script>
 
