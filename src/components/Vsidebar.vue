@@ -88,8 +88,10 @@
   /*.el-menu */
   .el-submenu__title { padding-left: 80px !important; height: 60px; text-align: left; font-size: 18px; }
   .el-submenu__icon-arrow { right: 30px; }
+
   .el-slider__runway { margin: 22px 0; }
   .el-slider__runway, .el-slider__bar { height: 3px; }
+  .el-slider__button-wrapper { line-height: 36px; }
   .el-slider__button { width: 11px; height: 11px; }
 
   .v-submenu { font-size: 14px; }
