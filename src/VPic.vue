@@ -41,14 +41,13 @@
     .custom-scrollbar::-webkit-scrollbar-thumb { border-radius: 20px; background-color: rgba(0,0,0,.15); }
     .custom-scrollbar:hover::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,.25) }
 
-    html, body{ margin: 0; padding: 0; width: 100%; height: 100%; background: #2F3A4C; }
-    /*#2F3A4C*/
+    html, body{ margin: 0; padding: 0; width: 100%; height: 100%; background: #2b3342; }
 
     #vpic { position: relative; font-family: 'Avenir', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-align: center; height: 100%; }
     #vmenu { position: relative; width: 300px; height: 100%; }
-    #vpic_sidebar { position: absolute; top: 100px; bottom: 0; left: 0; width: 100%; background: #324057; box-shadow: 2px 1px 10px rgba(0, 0, 0, .1); overflow: auto; }
+    #vpic_sidebar { position: absolute; top: 100px; bottom: 0; left: 0; width: 100%; background: #324057; overflow: auto; }
     #vmain { position: relative; margin-left: 300px; min-width: 800px; height: 100%; }
-    #vtoolbar { width: 100%; height: 60px; background: #324057; }
-    #veditor { position: absolute; top: 70px; bottom: 0; width: 100%; }
+    #vtoolbar { width: 100%; height: 48px; background: #324057; }
+    #veditor { position: absolute; top: 48px; bottom: 0; width: 100%; }
     .logo { position: absolute; left: 0; top: 0; width: 100%; height: 100px; background: url('../static/image/LOGO-s.png') no-repeat center center; }
 </style>
