@@ -64,18 +64,14 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import Slider from './Slider';
-  import { mapGetters } from 'vuex'
 
   export default {
     components: {
       Slider,
     },
-    computed: {
-      mapGetters([
-        'evenOrOdd',
-      ])
-    },
+    computed: mapGetters(['evenOrOdd']),
     methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
