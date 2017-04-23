@@ -22,19 +22,35 @@
         <button @click="cropImage">Crop Image</button>
         <button @click="rotate">Rotate</button>
         <button @click="change">Change Image</button>-->
-        <!--<vupload></vupload>-->
+        <vupload v-on:uploadedImg="getUploadedImg"></vupload>
+        <vcanvas :config="uploadedMsg"></vcanvas>
     </div>
 </template>
 
 <script>
-    import VueCropper from '../../node_modules/vue-cropperjs';
     import Vupload from './Vupload';
+    import Vcanvas from './Vcanvas';
 
     export default {
       name: 'Veditor',
       components: {
-        VueCropper,
         Vupload,
+        Vcanvas,
+      },
+      data() {
+        return {
+          uploadedMsg: {
+            type: '',
+            data: {},
+          },
+        };
+      },
+      methods: {
+        // 接收子组件（Vupload组件）传递过来的信息
+        getUploadedImg(type, data) {
+          this.uploadedMsg.type = type;
+          this.uploadedMsg.data = data;
+        },
       },
         // data() {
         //   return {
@@ -65,5 +81,24 @@
 </script>
 
 <style>
+  .sr-only {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  .sr-only--focusable:active,
+  .sr-only--focusable:focus {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    clip: auto
+  }
+
 
 </style>
