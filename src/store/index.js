@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     count: 5,
+    uploaded: false,
   },
   getters: {
     evenOrOdd: state => (state.count % 2 === 0 ? 'even' : 'odd'),
