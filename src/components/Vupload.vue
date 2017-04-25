@@ -12,8 +12,13 @@
   export default {
     data() {
       return {
-        uploaded: false,
+        // uploaded: false,
       };
+    },
+    computed: {
+      uploaded() {
+        return this.$store.state.uploaded;
+      },
     },
     methods: {
       read(file, callback = () => {}) {
@@ -26,13 +31,21 @@
 
             reader.onload = () => {
               // 上传区域置空
-              this.uploaded = true;
-              // 向父组件传递类型以及文件信息
-              this.$emit('uploadedImg', 'uploaded', {
-                type: file.type,
-                name: file.name,
-                url: reader.result,
+              this.$store.dispatch('setUpload');
+              // store传递类型以及文件信息
+              this.$store.dispatch('uploadedImg', {
+                type: 'uploaded',
+                imgMsg: {
+                  type: file.type,
+                  name: file.name,
+                  url: reader.result,
+                },
               });
+              // this.$emit('uploadedImg', 'uploaded', {
+              //   type: file.type,
+              //   name: file.name,
+              //   url: reader.result,
+              // });
 
               callback();
             };

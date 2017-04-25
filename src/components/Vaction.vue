@@ -4,10 +4,10 @@
       <a :href="url" data-action="download" :download="name" class="save-btn btn" title="下载保存"><span class="icon"></span></a :href="url">
     </li>
     <li class="fr">
-      <button data-action="remove" class="delete-btn btn" title="清空画布" v-show="uploaded"><span class="icon"></span></button>
+      <button @click="click" data-action="remove" class="delete-btn btn" title="清空画布" v-show="uploaded"><span class="icon"></span></button>
     </li>
     <li class="fr">
-      <button data-action="clear" class="cancel-btn btn" title="取消操作" v-show="cropping"><span class="icon"></span></button>
+      <button @click="click" data-action="clear" class="cancel-btn btn" title="取消操作" v-show="cropping"><span class="icon"></span></button>
     </li>
   </ul>
 </template>
@@ -15,15 +15,40 @@
   export default {
     data() {
       return {
-        uploaded: false,
-        cropping: false,
         cropped: false,
         download: typeof document.createElement('a').download !== 'undefined',
         url: '',
         name: '',
       };
     },
-    methods: {},
+    methods: {
+      click(e) {
+        const action = e.target.dataset.action;
+
+        if (action) {
+          switch (action) {
+            case 'remove':
+              this.remove();
+              break;
+            default:
+              break;
+          }
+        }
+      },
+      remove() {
+        this.$store.dispatch('removeUpload', {
+          actionType: 'remove',
+        });
+      },
+    },
+    computed: {
+      uploaded() {
+        return this.$store.state.uploaded;
+      },
+      cropping() {
+        return this.$store.state.cropping;
+      },
+    },
   };
 </script>
 <style>

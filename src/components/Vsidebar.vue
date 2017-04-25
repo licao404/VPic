@@ -43,7 +43,7 @@
       <el-submenu index="3">
         <template slot="title"><i class="my-icon-blur my-icon"></i>模糊</template>
         <el-menu-item-group>
-          <template slot="title">{{ $store.state.count }}</template>
+          <template slot="title"></template>
           <el-menu-item index="1-1">选项1</el-menu-item>
           <el-menu-item index="1-2">选项2</el-menu-item>
         </el-menu-item-group>
@@ -64,14 +64,12 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex';
   import Slider from './Slider';
 
   export default {
     components: {
       Slider,
     },
-    computed: mapGetters(['evenOrOdd']),
     methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);

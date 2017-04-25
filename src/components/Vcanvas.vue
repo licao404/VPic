@@ -12,7 +12,6 @@
   export default {
     data() {
       return {
-        // editable: false,
         cropper: false,
         cropping: false,
         data: null,
@@ -35,7 +34,10 @@
     },
     computed: {
       editable() {
-        return this.config.type === 'uploaded';
+        return this.$store.state.uploaded;
+      },
+      lisenActionType() {
+        return this.$store.state.actionType;
       },
     },
     watch: {
@@ -46,13 +48,13 @@
     },
     methods: {
       initPaper() {
-        this.type = this.config.type;
-        this.name = this.config.data.name;
-        this.url = this.config.data.url;
+        const imgMsg = this.$store.state.imgMsg;
+        this.type = imgMsg.type;
+        this.name = imgMsg.name;
+        this.url = imgMsg.url;
       },
       load(e) {
         if (!this.image) {
-          // console.
           this.image = e.target;
           this.start();
         }
@@ -242,16 +244,18 @@
           crop(data) {
             if (data.width > 0 && data.height > 0 && !that.cropping) {
               that.cropping = true;
-              that.$dispatch('broadcast', 'cropping');
+              // that.$dispatch('broadcast', 'cropping');
+              that.$store.commit('toggleCropping');
             }
           },
         });
       },
       stop() {
         if (this.cropper) {
+          // 销毁cropper对象
           this.cropper.destroy();
           this.cropper = null;
-          this.cropping = false;
+          // this.cropping = false;
         }
       },
       crop(dispatch) {
@@ -297,29 +301,33 @@
           }
         }
       },
-      remove(dispatch) {
+      remove() {
         // Disallow to delete image when cropping
-        if (this.cropping) {
-          return;
+        // if (this.cropping) {
+        //   return;
+        // }
+        if (this.lisenActionType()) {
+          console.log(1);
         }
 
-        this.stop();
-        this.editable = false;
-        this.data = null;
-        this.image = null;
-        this.type = '';
-        this.name = '';
-        this.url = '';
-        this.originalUrl = '';
 
-        if (dispatch) {
-          this.$dispatch('broadcast', 'removed');
-        }
+        // this.stop();
+        // // this.editable = false;
+        // this.data = null;
+        // this.image = null;
+        // this.type = '';
+        // this.name = '';
+        // this.url = '';
+        // this.originalUrl = '';
+
+        // if (dispatch) {
+        //   this.$dispatch('broadcast', 'removed');
+        // }
       },
     },
-    props: {
-      config: Object,
-    },
+    // props: {
+    //   config: Object,
+    // },
   };
 </script>
 
