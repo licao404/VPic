@@ -13,7 +13,6 @@
     data() {
       return {
         cropper: false,
-        cropping: false,
         data: null,
         canvasData: null,
         cropBoxData: null,
@@ -44,6 +43,15 @@
       editable(show) {
         if (!show) return;
         this.initPaper();
+      },
+      lisenActionType(type) {
+        const actionMap = {
+          remove: this.remove,
+          clear: this.clear,
+          crop: this.crop,
+        };
+
+        actionMap[type.actionType]();
       },
     },
     methods: {
@@ -213,39 +221,39 @@
       },
       dblclick(e) {
         if (e.target.className.indexOf('cropper-face') >= 0) {
+          console.log(2);
           e.preventDefault();
           e.stopPropagation();
           this.crop(true);
         }
       },
       start() {
-        const that = this;
+        const self = this;
 
         if (this.cropper) {
           return;
         }
 
         this.cropper = new Cropper(this.image, {
+          // aspectRatio: 16 / 9,
           autoCrop: false,
           dragMode: 'move',
           background: false,
           built() {
-            if (that.data) {
+            if (self.data) {
               this.cropper
                 .crop()
-                .setData(that.data)
-                .setCanvasData(that.canvasData)
-                .setCropBoxData(that.cropBoxData);
-              that.data = null;
-              that.canvasData = null;
-              that.cropBoxData = null;
+                .setData(self.data)
+                .setCanvasData(self.canvasData)
+                .setCropBoxData(self.cropBoxData);
+              self.data = null;
+              self.canvasData = null;
+              self.cropBoxData = null;
             }
           },
           crop(data) {
-            if (data.width > 0 && data.height > 0 && !that.cropping) {
-              that.cropping = true;
-              // that.$dispatch('broadcast', 'cropping');
-              that.$store.commit('toggleCropping');
+            if (data.detail.width > 0 && data.detail.height > 0 && !self.$store.state.cropping) {
+              self.$store.dispatch('setCropping');
             }
           },
         });
@@ -255,39 +263,39 @@
           // 销毁cropper对象
           this.cropper.destroy();
           this.cropper = null;
-          // this.cropping = false;
+          this.$store.dispatch('cancelCropping');
         }
       },
-      crop(dispatch) {
+      nextCrop() {
+        this.cropper.replace(this.url);
+        this.$store.dispatch('cancelCropping');
+      },
+      crop() {
         const cropper = this.cropper;
         const type = this.type;
 
-        if (this.cropping) {
+        if (this.$store.state.cropping) {
           this.originalUrl = this.url;
           this.data = cropper.getData();
           this.canvasData = cropper.getCanvasData();
           this.cropBoxData = cropper.getCropBoxData();
+          // 非png格式图像空白处填充白色
           this.url = cropper.getCroppedCanvas(type === 'image/png' ? null : {
             fillColor: '#fff',
           }).toDataURL(type);
-          this.stop();
 
-          if (dispatch) {
-            this.$dispatch('broadcast', 'cropped', {
-              url: this.url,
-              name: this.name,
-            });
-          }
+          this.nextCrop();
+
+          this.$store.dispatch('cropImgMsg', {
+            url: this.url,
+            name: this.name,
+          });
         }
       },
-      clear(dispatch) {
-        if (this.cropping) {
+      clear() {
+        if (this.$store.state.cropping) {
           this.cropper.clear();
-          this.cropping = false;
-
-          if (dispatch) {
-            this.$dispatch('broadcast', 'cleared');
-          }
+          this.$store.dispatch('cancelCropping');
         }
       },
       restore(dispatch) {
@@ -303,31 +311,18 @@
       },
       remove() {
         // Disallow to delete image when cropping
-        // if (this.cropping) {
-        //   return;
-        // }
-        if (this.lisenActionType()) {
-          console.log(1);
+        if (!this.$store.state.cropping) {
+          this.stop();
+          this.data = null;
+          this.image = null;
+          this.type = '';
+          this.name = '';
+          this.url = '';
+          this.originalUrl = '';
+          this.$store.dispatch('cancelUpload');
         }
-
-
-        // this.stop();
-        // // this.editable = false;
-        // this.data = null;
-        // this.image = null;
-        // this.type = '';
-        // this.name = '';
-        // this.url = '';
-        // this.originalUrl = '';
-
-        // if (dispatch) {
-        //   this.$dispatch('broadcast', 'removed');
-        // }
       },
     },
-    // props: {
-    //   config: Object,
-    // },
   };
 </script>
 

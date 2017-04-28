@@ -6,7 +6,7 @@
         <template slot="title"><i class="my-icon-cut my-icon"></i>裁切</template>
         <el-submenu index="1-1">
           <template slot="title">固定比例</template>
-          <el-menu-item-group>
+          <el-menu-item-group @click="setAspectRatio">
             <el-menu-item index="1-1-1">16:9</el-menu-item>
             <el-menu-item index="1-1-2">4:3</el-menu-item>
             <el-menu-item index="1-1-3">1:1</el-menu-item>
@@ -71,6 +71,9 @@
       Slider,
     },
     methods: {
+      setAspectRatio() {
+        // console.log(1);
+      },
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
       },

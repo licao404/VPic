@@ -10,11 +10,6 @@
 
 <script>
   export default {
-    data() {
-      return {
-        // uploaded: false,
-      };
-    },
     computed: {
       uploaded() {
         return this.$store.state.uploaded;
@@ -33,19 +28,11 @@
               // 上传区域置空
               this.$store.dispatch('setUpload');
               // store传递类型以及文件信息
-              this.$store.dispatch('uploadedImg', {
-                type: 'uploaded',
-                imgMsg: {
-                  type: file.type,
-                  name: file.name,
-                  url: reader.result,
-                },
+              this.$store.dispatch('setImgMsg', {
+                type: file.type,
+                name: file.name,
+                url: reader.result,
               });
-              // this.$emit('uploadedImg', 'uploaded', {
-              //   type: file.type,
-              //   name: file.name,
-              //   url: reader.result,
-              // });
 
               callback();
             };
@@ -101,6 +88,7 @@
     border: 2px dashed #7d7d7d;
     border-radius: 10px;
     cursor: pointer;
+    transition: 0.1s;
   }
 
   .import-area:hover {

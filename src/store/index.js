@@ -8,7 +8,6 @@ export default new Vuex.Store({
   state: {
     uploaded: false,
     cropping: false,
-    type: '',
     actionType: '',
     // 上传的图片信息
     imgMsg: {
@@ -21,9 +20,12 @@ export default new Vuex.Store({
 
   },
   mutations: {
-    setImgMsg(state, uploadMsg) {
-      state.type = uploadMsg.type;
-      state.imgMsg = uploadMsg.imgMsg;
+    setImgMsg(state, imgMsg) {
+      state.imgMsg = imgMsg;
+    },
+    cropImgMsg(state, cropMsg) {
+      state.imgMsg.url = cropMsg.url;
+      state.imgMsg.name = cropMsg.name;
     },
     setUpload(state) {
       state.uploaded = true;
@@ -34,22 +36,33 @@ export default new Vuex.Store({
     setCropping(state) {
       state.cropping = true;
     },
+    cancelCropping(state) {
+      state.cropping = false;
+    },
     setActionType(state, type) {
       state.actionType = type;
     }
   },
   actions: {
-    uploadedImg({ commit }, uploadMsg) {
-      commit('setImgMsg', uploadMsg);
+    setImgMsg({ commit }, imgMsg) {
+      commit('setImgMsg', imgMsg);
+    },
+    cropImgMsg({ commit }, cropMsg) {
+      commit('cropImgMsg', cropMsg);
     },
     setUpload({ commit }) {
       commit('setUpload');
     },
+    setCropping({ commit }) {
+      commit('setCropping');
+    },
     cancelUpload({ commit }) {
       commit('cancelUpload');
     },
-    removeUpload({ commit }, actionType) {
-      commit('cancelUpload');
+    cancelCropping({ commit }) {
+      commit('cancelCropping');
+    },
+    setActionType({ commit }, actionType) {
       commit('setActionType', actionType);
     },
   },
