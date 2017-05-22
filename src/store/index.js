@@ -15,6 +15,12 @@ export default new Vuex.Store({
       name: '',
       url: '',
     },
+    cropper: null,
+    // 图像参数调整
+    imgArguments: {
+      brightness: 0,
+      contrast: 0,
+    },
   },
   getters: {
 
@@ -22,6 +28,9 @@ export default new Vuex.Store({
   mutations: {
     setImgMsg(state, imgMsg) {
       state.imgMsg = imgMsg;
+    },
+    setImgUrl(state, url) {
+      state.imgMsg.url = url;
     },
     cropImgMsg(state, cropMsg) {
       state.imgMsg.url = cropMsg.url;
@@ -41,11 +50,23 @@ export default new Vuex.Store({
     },
     setActionType(state, type) {
       state.actionType = type;
-    }
+    },
+    setCropper(state, cropper) {
+      state.cropper = cropper;
+    },
+    setBrightness(state, val) {
+      state.imgArguments.brightness = val;
+    },
+    setContrast(state, val) {
+      state.imgArguments.contrast = val;
+    },
   },
   actions: {
     setImgMsg({ commit }, imgMsg) {
       commit('setImgMsg', imgMsg);
+    },
+    setImgUrl({ commit }, url) {
+      commit('setImgUrl', url);
     },
     cropImgMsg({ commit }, cropMsg) {
       commit('cropImgMsg', cropMsg);
@@ -65,5 +86,14 @@ export default new Vuex.Store({
     setActionType({ commit }, actionType) {
       commit('setActionType', actionType);
     },
+    setCropper({ commit }, cropper) {
+      commit('setCropper', cropper);
+    },
+    setBrightness({ commit }, val) {
+      commit('setBrightness', val);
+    },
+    setContrast({ commit }, val) {
+      commit('setContrast', val);
+    }
   },
 });

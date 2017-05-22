@@ -72,7 +72,7 @@
   --------------------------*/
     /* Steps
   --------------------------*/
-    /* Steps
+    /* Menu
   --------------------------*/
     /* Rate
   --------------------------*/
@@ -80,10 +80,18 @@
   --------------------------*/
     /* Loading
   --------------------------*/
+    /* Scrollbar
+  --------------------------*/
+    /* Carousel
+  --------------------------*/
+    /* Collapse
+  --------------------------*/
+    /* Transfer
+  --------------------------*/
 }
 
 .el-card{
-    border: 1px solid #D3DCE6;
+    border: 1px solid rgb(209, 219, 229);
     border-radius: 4px;
     background-color: #fff;
     overflow: hidden;
@@ -93,7 +101,7 @@
 
 .el-card__header{
     padding: 18px 20px;
-    border-bottom: 1px solid #D3DCE6;
+    border-bottom: 1px solid rgb(209, 219, 229);
     box-sizing: border-box
 }
 

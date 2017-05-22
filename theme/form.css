@@ -1,4 +1,17 @@
-@charset "UTF-8";
+.el-form-item__content:before, .el-form-item__content:after{
+    display: table;
+    content: "";
+}
+.el-form-item__content:after{
+    clear: both;
+}
+.el-form-item:before, .el-form-item:after{
+    display: table;
+    content: "";
+}
+.el-form-item:after{
+    clear: both;
+}@charset "UTF-8";
 :root{
     /* Transition
   -------------------------- */
@@ -72,13 +85,21 @@
   --------------------------*/
     /* Steps
   --------------------------*/
-    /* Steps
+    /* Menu
   --------------------------*/
     /* Rate
   --------------------------*/
     /* DatePicker
   --------------------------*/
     /* Loading
+  --------------------------*/
+    /* Scrollbar
+  --------------------------*/
+    /* Carousel
+  --------------------------*/
+    /* Collapse
+  --------------------------*/
+    /* Transfer
   --------------------------*/
 }
 
@@ -95,6 +116,7 @@
 .el-form--label-top .el-form-item__label{
     float: none;
     display: inline-block;
+    text-align: left;
     padding: 0 0 10px 0;
 }
 
@@ -106,17 +128,22 @@
     vertical-align: top;
 }
 
+.el-form--inline .el-form-item__label{
+    float: none;
+    display: inline-block;
+}
+
+.el-form--inline .el-form-item__content{
+    display: inline-block;
+    vertical-align: top;
+}
+
+.el-form--inline.el-form--label-top .el-form-item__content{
+    display: block;
+}
+
 .el-form-item{
     margin-bottom: 22px;
-}
-
-.el-form-item:before, .el-form-item:after{
-    display: table;
-    content: "";
-}
-
-.el-form-item:after{
-    clear: both;
 }
 
 .el-form-item .el-form-item{
@@ -127,7 +154,11 @@
     margin-left: 0 !important;
 }
 
-.el-form-item.is-error{}
+.el-form-item.is-error .el-input-group__append, .el-form-item.is-error .el-input-group__prepend, .el-form-item.is-error{}
+
+.el-form-item.is-error .el-input-group__append .el-input__inner, .el-form-item.is-error .el-input-group__prepend .el-input__inner, .el-form-item.is-error .el-input__inner{
+    border-color: transparent;
+}
 
 .el-form-item.is-error .el-input__inner, .el-form-item.is-error .el-textarea__inner{
     border-color: #ff4949;
@@ -144,7 +175,7 @@
     vertical-align: middle;
     float: left;
     font-size: 14px;
-    color: #5e6d82;
+    color: rgb(72, 87, 106);
     line-height: 1;
     padding: 11px 12px 11px 0;
     box-sizing: border-box;
@@ -154,15 +185,6 @@
     line-height: 36px;
     position: relative;
     font-size: 14px;
-}
-
-.el-form-item__content:before, .el-form-item__content:after{
-    display: table;
-    content: "";
-}
-
-.el-form-item__content:after{
-    clear: both;
 }
 
 .el-form-item__error{

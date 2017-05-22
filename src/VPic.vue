@@ -14,10 +14,9 @@
 <script>
     import Cropper from 'cropperjs';
     import 'cropperjs/dist/cropper.css';
-    import Vtoolbar from './components/Vtoolbar';
-    import Vsidebar from './components/Vsidebar';
-    import Slider from './components/Slider';
-    import Veditor from './components/Veditor';
+    import Vtoolbar from './components/toolbar_module/index';
+    import Vsidebar from './components/sidebar';
+    import Veditor from './components/Veditor/index';
 
     export default {
       name: 'vpic',
@@ -25,7 +24,6 @@
         Cropper,
         Vtoolbar,
         Vsidebar,
-        Slider,
         Veditor,
       },
     };

@@ -72,7 +72,7 @@
   --------------------------*/
     /* Steps
   --------------------------*/
-    /* Steps
+    /* Menu
   --------------------------*/
     /* Rate
   --------------------------*/
@@ -80,10 +80,18 @@
   --------------------------*/
     /* Loading
   --------------------------*/
+    /* Scrollbar
+  --------------------------*/
+    /* Carousel
+  --------------------------*/
+    /* Collapse
+  --------------------------*/
+    /* Transfer
+  --------------------------*/
 }
 
 .el-tag{
-    background-color: #8492a6;
+    background-color: rgb(131, 145, 165);
     display: inline-block;
     padding: 0 5px;
     height: 24px;
@@ -113,37 +121,37 @@
 
 .el-tag .el-icon-close:hover{
     background-color: #fff;
-    color: #8492a6
+    color: rgb(131, 145, 165)
 }
 
 .el-tag--gray{
-    background-color: #e5e9f2;
-    border-color: #e5e9f2;
-    color: #475669
+    background-color: rgb(228, 232, 241);
+    border-color: rgb(228, 232, 241);
+    color: rgb(72, 87, 106)
 }
 
 .el-tag--gray .el-tag__close:hover{
-    background-color: #475669;
+    background-color: rgb(72, 87, 106);
     color: #fff
 }
 
 .el-tag--gray.is-hit{
-    border-color: #475669
+    border-color: rgb(72, 87, 106)
 }
 
 .el-tag--primary{
-    background-color: rgba(32,159,255,0.10);
-    border-color: rgba(32,159,255,0.20);
-    color: #41b883
+    background-color: rgba(32, 160, 255, 0.1);
+    border-color: rgba(32, 160, 255, 0.2);
+    color: #20a0ff
 }
 
 .el-tag--primary .el-tag__close:hover{
-    background-color: #41b883;
+    background-color: #20a0ff;
     color: #fff
 }
 
 .el-tag--primary.is-hit{
-    border-color: #41b883
+    border-color: #20a0ff
 }
 
 .el-tag--success{

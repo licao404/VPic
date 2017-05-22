@@ -72,13 +72,21 @@
   --------------------------*/
     /* Steps
   --------------------------*/
-    /* Steps
+    /* Menu
   --------------------------*/
     /* Rate
   --------------------------*/
     /* DatePicker
   --------------------------*/
     /* Loading
+  --------------------------*/
+    /* Scrollbar
+  --------------------------*/
+    /* Carousel
+  --------------------------*/
+    /* Collapse
+  --------------------------*/
+    /* Transfer
   --------------------------*/
 }
 
@@ -115,21 +123,23 @@
     margin-left: 0;
 }
 
-.el-notification__group span{
-    font-size: 16px;
-    color: #1f2d3d;
+.el-notification__group.is-with-icon{
+    margin-left: 55px;
 }
 
-.el-notification__group p{
+.el-notification__title{
+    font-weight: 400;
+    font-size: 16px;
+    color: rgb(31, 45, 61);
+    margin: 0;
+}
+
+.el-notification__content{
     font-size: 14px;
     line-height: 21px;
     margin: 10px 0 0 0;
-    color: #8492a6;
+    color: rgb(131, 145, 165);
     text-align: justify;
-}
-
-.el-notification__group.is-with-icon{
-    margin-left: 55px;
 }
 
 .el-notification__icon{
@@ -146,12 +156,12 @@
     right: 20px;
     position: absolute;
     cursor: pointer;
-    color: #c0ccda;
+    color: rgb(191, 203, 217);
     font-size: 14px;
 }
 
 .el-notification__closeBtn:hover{
-    color: #99A9BF;
+    color: rgb(151, 168, 190);
 }
 
 .el-notification-fade-enter {

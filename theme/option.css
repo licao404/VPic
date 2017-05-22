@@ -72,13 +72,21 @@
   --------------------------*/
     /* Steps
   --------------------------*/
-    /* Steps
+    /* Menu
   --------------------------*/
     /* Rate
   --------------------------*/
     /* DatePicker
   --------------------------*/
     /* Loading
+  --------------------------*/
+    /* Scrollbar
+  --------------------------*/
+    /* Carousel
+  --------------------------*/
+    /* Collapse
+  --------------------------*/
+    /* Transfer
   --------------------------*/
 }
 
@@ -91,24 +99,24 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #475669;
+    color: rgb(72, 87, 106);
     height: 36px;
     line-height: 1.5;
     box-sizing: border-box;
     cursor: pointer
 }
 
-.el-select-dropdown__item.hover{
-    background-color: #e5e9f2
+.el-select-dropdown__item.hover, .el-select-dropdown__item:hover{
+    background-color: rgb(228, 232, 241)
 }
 
 .el-select-dropdown__item.selected{
     color: #fff;
-    background-color: #41b883
+    background-color: #20a0ff
 }
 
 .el-select-dropdown__item.selected.hover{
-    background-color: #1D8CE0
+    background-color: rgb(28, 141, 224)
 }
 
 .el-select-dropdown__item span{
@@ -116,7 +124,7 @@
 }
 
 .el-select-dropdown__item.is-disabled{
-    color: #c0ccda;
+    color: rgb(191, 203, 217);
     cursor: not-allowed
 }
 

@@ -72,13 +72,21 @@
   --------------------------*/
     /* Steps
   --------------------------*/
-    /* Steps
+    /* Menu
   --------------------------*/
     /* Rate
   --------------------------*/
     /* DatePicker
   --------------------------*/
     /* Loading
+  --------------------------*/
+    /* Scrollbar
+  --------------------------*/
+    /* Carousel
+  --------------------------*/
+    /* Collapse
+  --------------------------*/
+    /* Transfer
   --------------------------*/
 }
 
@@ -117,17 +125,19 @@
     margin-left: 38px;
     position: relative;
     height: 20px;
+    line-height: 20px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center;
 }
 
 .el-message__group p{
     font-size: 14px;
-    line-height: 20px;
     margin: 0 34px 0 0;
     white-space: nowrap;
-    color: #8492a6;
+    color: rgb(131, 145, 165);
     text-align: justify;
-    display: inline-block;
-    vertical-align: middle;
 }
 
 .el-message__group.is-with-icon{
@@ -152,12 +162,12 @@
     right: 0;
     position: absolute;
     cursor: pointer;
-    color: #c0ccda;
+    color: rgb(191, 203, 217);
     font-size: 14px;
 }
 
 .el-message__closeBtn:hover{
-    color: #99A9BF;
+    color: rgb(151, 168, 190);
 }
 
 .el-message-fade-enter, .el-message-fade-leave-active {
