@@ -139,7 +139,7 @@
       top: 0;
       width: 100%;
       height: 100px;
-      background: url('/static/image/LOGO-slccc1.png') no-repeat center center;
+      background: url('../static/image/LOGO-slccc1.png') no-repeat center center;
     }
 
 </style>
