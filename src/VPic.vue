@@ -1,7 +1,9 @@
 <template>
   <section id="vpic" class="clearfix">
     <div id="vmenu" class="fl">
-      <div class="logo"></div>
+      <div class="logo">
+          <img src="../static/image/LOGO-s.png">
+      </div>
       <vsidebar></vsidebar>
     </div>
     <div id="vmain" class="">
@@ -139,7 +141,6 @@
       top: 0;
       width: 100%;
       height: 100px;
-      background: url(/image/LOGO-slccc1.png) no-repeat center center;
     }
 
 </style>
