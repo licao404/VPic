@@ -20,12 +20,18 @@ export default new Vuex.Store({
     imgArguments: {
       brightness: 0,
       contrast: 0,
+      hue: 0,
+      saturation: 0,
     },
+    storeUrl: '',
   },
   getters: {
 
   },
   mutations: {
+    storeResult(state, url) {
+      state.storeUrl = url;
+    },
     setImgMsg(state, imgMsg) {
       state.imgMsg = imgMsg;
     },
@@ -60,8 +66,17 @@ export default new Vuex.Store({
     setContrast(state, val) {
       state.imgArguments.contrast = val;
     },
+    setHue(state, val) {
+      state.imgArguments.hue = val;
+    },
+    setSaturation(state, val) {
+      state.imgArguments.saturation = val;
+    },
   },
   actions: {
+    storeResult({ commit }, url) {
+      commit('storeResult', url);
+    },
     setImgMsg({ commit }, imgMsg) {
       commit('setImgMsg', imgMsg);
     },
@@ -94,6 +109,12 @@ export default new Vuex.Store({
     },
     setContrast({ commit }, val) {
       commit('setContrast', val);
+    },
+    setHue({ commit }, val) {
+      commit('setHue', val);
+    },
+    setSaturation({ commit }, val) {
+      commit('setSaturation', val);
     }
   },
 });

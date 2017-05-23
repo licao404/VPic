@@ -83,9 +83,9 @@
         this.imgPaper.render(() => {
           // render后回调，存储处理后的图像
           imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
-          self.$store.dispatch('setImgUrl', imgUrl);
+          // self.$store.dispatch('setImgUrl', imgUrl);
+          self.$store.dispatch('storeResult', imgUrl);
         });
-        // window.open(this.imgPaper.toBase64('jpeg'));
       },
       initPaper() {
         const imgMsg = this.$store.state.imgMsg;

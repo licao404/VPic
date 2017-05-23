@@ -35,16 +35,32 @@
               <el-slider v-model="contrast" :min="-50" :max="50" :show-tooltip="false" @change="setContrast"></el-slider>
             </el-menu-item>
             <el-menu-item index="2-1-3">
-              <el-button type="primary">确定</el-button>
-              <el-button type="primary">重置</el-button>
+              <el-button type="primary" @click="saveResult">确定</el-button>
+              <el-button @click="resetGrayscale">重置</el-button>
             </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="2-2">
-          <template slot="title">色相 / 饱和度</template>
+          <template slot="title">色调 / 饱和度</template>
           <el-menu-item-group>
-            <el-menu-item index="2-2-1">色相</el-menu-item>
-            <el-menu-item index="2-2-2">饱和度</el-menu-item>
+            <el-menu-item index="2-2-1">
+              <div class="val-tag clearfix">
+                <span class="fl">色调</span>
+                <span class="fr">{{ hue }}</span>
+              </div>
+              <el-slider v-model="hue" :min="0" :max="100" :show-tooltip="false" @change="setHue"></el-slider>
+            </el-menu-item>
+            <el-menu-item index="2-2-2">
+              <div class="val-tag clearfix">
+                <span class="fl">饱和度</span>
+                <span class="fr">{{ saturation }}</span>
+              </div>
+              <el-slider v-model="saturation" :min="-50" :max="50" :show-tooltip="false" @change="setSaturation"></el-slider>
+            </el-menu-item>
+            <el-menu-item index="2-2-3">
+              <el-button type="primary" @click="saveResult">确定</el-button>
+              <el-button @click="resetGrayscale">重置</el-button>
+            </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
 <!--         <el-menu-item-group>
@@ -69,6 +85,8 @@
       return {
         brightness: 0,
         contrast: 0,
+        hue: 0,
+        saturation: 0,
       };
     },
     methods: {
@@ -95,6 +113,21 @@
       },
       setContrast() {
         this.$store.dispatch('setContrast', this.contrast);
+      },
+      setHue() {
+        this.$store.dispatch('setHue', this.hue);
+      },
+      setSaturation() {
+        this.$store.dispatch('setSaturation', this.saturation);
+      },
+      saveResult() {
+        const imgUrl = this.$store.state.storeUrl;
+
+        this.$store.dispatch('setImgUrl', imgUrl);
+      },
+      resetGrayscale() {
+        this.brightness = 0;
+        this.contrast = 0;
       },
     },
   };
