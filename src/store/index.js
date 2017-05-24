@@ -22,6 +22,11 @@ export default new Vuex.Store({
       contrast: 0,
       hue: 0,
       saturation: 0,
+      greyscale: false,
+      invert: false,
+      blur: 0,
+      noise: 0,
+      sharpen: 0,
     },
     storeUrl: '',
   },
@@ -72,6 +77,21 @@ export default new Vuex.Store({
     setSaturation(state, val) {
       state.imgArguments.saturation = val;
     },
+    setGreyscale(state, val) {
+      state.imgArguments.greyscale = val;
+    },
+    setInvert(state, val) {
+      state.imgArguments.invert = val;
+    },
+    setBlur(state, val) {
+      state.imgArguments.blur = val;
+    },
+    setNoise(state, val) {
+      state.imgArguments.noise = val;
+    },
+    setSharpen(state, val) {
+      state.imgArguments.sharpen = val;
+    },
   },
   actions: {
     storeResult({ commit }, url) {
@@ -115,6 +135,21 @@ export default new Vuex.Store({
     },
     setSaturation({ commit }, val) {
       commit('setSaturation', val);
-    }
+    },
+    setGreyscale({ commit }, val) {
+      commit('setGreyscale', val);
+    },
+    setInvert({ commit }, val) {
+      commit('setInvert', val);
+    },
+    setBlur({ commit }, val) {
+      commit('setBlur', val);
+    },
+    setNoise({ commit }, val) {
+      commit('setNoise', val);
+    },
+    setSharpen({ commit }, val) {
+      commit('setSharpen', val);
+    },
   },
 });

@@ -48,6 +48,27 @@
           contrast: this.$store.state.imgArguments.contrast,
         };
       },
+      vColor() {
+        return {
+          hue: this.$store.state.imgArguments.hue,
+          saturation: this.$store.state.imgArguments.saturation,
+        };
+      },
+      vInvert() {
+        return {
+          greyscale: this.$store.state.imgArguments.greyscale,
+          invert: this.$store.state.imgArguments.invert,
+        };
+      },
+      vBlur() {
+        return this.$store.state.imgArguments.blur;
+      },
+      vNoise() {
+        return this.$store.state.imgArguments.noise;
+      },
+      vSharpen() {
+        return this.$store.state.imgArguments.sharpen;
+      },
     },
     watch: {
       editable(show) {
@@ -66,24 +87,101 @@
       },
       vGrayscale(grayscale) {
         if (this.uploaded) {
-          this.setGrayscale(grayscale);
+          this.setArgument(grayscale);
+        }
+      },
+      vColor(color) {
+        if (this.uploaded) {
+          this.setArgument(color);
+        }
+      },
+      vInvert(invert) {
+        if (this.uploaded) {
+          this.setInvert(invert);
+        }
+      },
+      vBlur(blur) {
+        if (this.uploaded) {
+          this.setBlur(blur);
+        }
+      },
+      vNoise(noise) {
+        if (this.uploaded) {
+          this.setNoise(noise);
+        }
+      },
+      vSharpen(sharpen) {
+        if (this.uploaded) {
+          this.setSharpen(sharpen);
         }
       },
     },
     methods: {
-      setGrayscale(grayscale) {
+      setArgument(val) {
         const self = this;
         let imgUrl = '';
 
         this.imgPaper = caman('.cropper-canvas .canvas-img');
         this.imgPaper.revert(false);
-        $.map(grayscale, (v, k) => {
+        $.map(val, (v, k) => {
           this.imgPaper[k](v);
         });
         this.imgPaper.render(() => {
           // render后回调，存储处理后的图像
           imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
           // self.$store.dispatch('setImgUrl', imgUrl);
+          self.$store.dispatch('storeResult', imgUrl);
+        });
+      },
+      setInvert(invert) {
+        const self = this;
+        let imgUrl = '';
+
+        this.imgPaper = caman('.cropper-canvas .canvas-img');
+        this.imgPaper.revert(true);
+        $.map(invert, (v, k) => {
+          if (v) {
+            this.imgPaper[k]();
+          }
+        });
+        this.imgPaper.render(() => {
+          imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
+          self.$store.dispatch('storeResult', imgUrl);
+        });
+      },
+      setBlur(blur) {
+        const self = this;
+        let imgUrl = '';
+
+        this.imgPaper = caman('.cropper-canvas .canvas-img');
+        this.imgPaper.revert(false);
+        this.imgPaper.stackBlur(blur);
+        this.imgPaper.render(() => {
+          imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
+          self.$store.dispatch('storeResult', imgUrl);
+        });
+      },
+      setNoise(noise) {
+        const self = this;
+        let imgUrl = '';
+
+        this.imgPaper = caman('.cropper-canvas .canvas-img');
+        this.imgPaper.revert(false);
+        this.imgPaper.noise(noise);
+        this.imgPaper.render(() => {
+          imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
+          self.$store.dispatch('storeResult', imgUrl);
+        });
+      },
+      setSharpen(sharpen) {
+        const self = this;
+        let imgUrl = '';
+
+        this.imgPaper = caman('.cropper-canvas .canvas-img');
+        this.imgPaper.revert(false);
+        this.imgPaper.sharpen(sharpen);
+        this.imgPaper.render(() => {
+          imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
           self.$store.dispatch('storeResult', imgUrl);
         });
       },

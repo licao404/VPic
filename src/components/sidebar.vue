@@ -59,20 +59,80 @@
             </el-menu-item>
             <el-menu-item index="2-2-3">
               <el-button type="primary" @click="saveResult">确定</el-button>
-              <el-button @click="resetGrayscale">重置</el-button>
+              <el-button @click="resetColor">重置</el-button>
             </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-<!--         <el-menu-item-group>
-          <el-menu-item index="1-1">亮度 / 对比度</el-menu-item>
-          <el-menu-item index="1-2">色相 / 饱和度</el-menu-item>
-        </el-menu-item-group> -->
+        <el-submenu index="2-3">
+          <template slot="title">灰度 / 反色</template>
+          <el-menu-item-group>
+            <el-menu-item index="2-3-1">
+              <div class="val-tag clearfix">
+                <span class="fl">灰度</span>
+                <span class="fr">{{ greyscale }}</span>
+              </div>
+              <el-switch v-model="greyscale" on-text="" off-text="" @change="setGreyscale" on-color="#7D5CFF"></el-switch>
+            </el-menu-item>
+            <el-menu-item index="2-3-2">
+              <div class="val-tag clearfix">
+                <span class="fl">反色</span>
+                <span class="fr">{{ invert }}</span>
+              </div>
+              <el-switch v-model="invert" on-text="" off-text="" @change="setInvert" on-color="#7D5CFF"></el-switch>
+            </el-menu-item>
+            <el-menu-item index="2-3-3">
+              <el-button type="primary" @click="saveResult">确定</el-button>
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
       </el-submenu>
       <el-submenu index="3">
-        <template slot="title"><i class="my-icon-blur my-icon"></i>模糊</template>
+        <template slot="title"><i class="my-icon-blur my-icon"></i>增强</template>
+        <el-submenu index="3-1">
+          <template slot="title">模糊</template>
+          <el-menu-item index="3-1-1">
+            <div class="val-tag clearfix">
+              <span class="fl">模糊</span>
+              <span class="fr">{{ blur }}</span>
+            </div>
+            <el-slider v-model="blur" :min="0" :max="20" :show-tooltip="false" @change="setBlur"></el-slider>
+          </el-menu-item>
+          <el-menu-item index="3-1-2">
+            <el-button type="primary" @click="saveResult">确定</el-button>
+            <el-button @click="resetBlur">重置</el-button>
+          </el-menu-item>
+        </el-submenu>
+        <el-submenu index="3-2">
+          <template slot="title">噪声</template>
+          <el-menu-item index="3-2-1">
+            <div class="val-tag clearfix">
+              <span class="fl">噪声</span>
+              <span class="fr">{{ noise }}</span>
+            </div>
+            <el-slider v-model="noise" :min="0" :max="50" :show-tooltip="false" @change="setNoise"></el-slider>
+          </el-menu-item>
+          <el-menu-item index="3-2-2">
+            <el-button type="primary" @click="saveResult">确定</el-button>
+            <el-button @click="resetNoise">重置</el-button>
+          </el-menu-item>
+        </el-submenu>
+        <el-submenu index="3-3">
+          <template slot="title">锐化</template>
+          <el-menu-item index="3-3-1">
+            <div class="val-tag clearfix">
+              <span class="fl">锐化</span>
+              <span class="fr">{{ sharpen }}</span>
+            </div>
+            <el-slider v-model="sharpen" :min="0" :max="50" :show-tooltip="false" @change="setSharpen"></el-slider>
+          </el-menu-item>
+          <el-menu-item index="3-3-2">
+            <el-button type="primary" @click="saveResult">确定</el-button>
+            <el-button @click="resetSharpen">重置</el-button>
+          </el-menu-item>
+        </el-submenu>
       </el-submenu>
       <el-submenu index="4">
-        <template slot="title"><i class="my-icon-fun my-icon"></i>Fun</template>
+        <template slot="title"><i class="my-icon-filter my-icon"></i>滤镜</template>
       </el-submenu>
     </el-menu>
   </el-col>
@@ -87,6 +147,11 @@
         contrast: 0,
         hue: 0,
         saturation: 0,
+        greyscale: false,
+        invert: false,
+        blur: 0,
+        noise: 0,
+        sharpen: 0,
       };
     },
     methods: {
@@ -120,14 +185,48 @@
       setSaturation() {
         this.$store.dispatch('setSaturation', this.saturation);
       },
+      setGreyscale() {
+        this.$store.dispatch('setGreyscale', this.greyscale);
+      },
+      setInvert() {
+        this.$store.dispatch('setInvert', this.invert);
+      },
+      setBlur() {
+        this.$store.dispatch('setBlur', this.blur);
+      },
+      setNoise() {
+        this.$store.dispatch('setNoise', this.noise);
+      },
+      setSharpen() {
+        this.$store.dispatch('setSharpen', this.sharpen);
+      },
       saveResult() {
         const imgUrl = this.$store.state.storeUrl;
 
         this.$store.dispatch('setImgUrl', imgUrl);
+        this.$notify({
+          title: '提示',
+          message: '参数调整完成 可点击下载',
+          type: 'success',
+          duration: 1500,
+        });
       },
       resetGrayscale() {
         this.brightness = 0;
         this.contrast = 0;
+      },
+      resetColor() {
+        this.hue = 0;
+        this.saturation = 0;
+      },
+      resetBlur() {
+        this.blur = 0;
+      },
+      resetNoise() {
+        this.noise = 0;
+      },
+      resetSharpen() {
+        this.sharpen = 0;
       },
     },
   };
@@ -156,4 +255,5 @@
   .my-icon-edit { background: url('../../static/sprites/editor.png'); background-size: 24px 24px; }
   .my-icon-blur { background: url('../../static/sprites/blur.png'); background-size: 24px 24px; }
   .my-icon-fun { background: url('../../static/sprites/fun.png'); background-size: 24px 24px; }
+  .my-icon-filter { background: url('../../static/sprites/filter.png'); background-size: 24px 24px; }
 </style>
