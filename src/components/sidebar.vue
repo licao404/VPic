@@ -166,37 +166,37 @@
         filterList: [
           {
             name: 'sunrise',
-            preview: '/image/filter-sunrise.jpg',
+            preview: '../static/image/filter-sunrise.jpg',
             desc: '日出辉映',
           },
           {
             name: 'lomo',
-            preview: '/image/filter-lomo.jpg',
+            preview: '../static/image/filter-lomo.jpg',
             desc: 'Lomo风格',
           },
           {
             name: 'clarity',
-            preview: '/image/filter-clarity.jpg',
+            preview: '../static/image/filter-clarity.jpg',
             desc: '这一刻 更清晰',
           },
           {
             name: 'hazyDays',
-            preview: '/image/filter-hazyDays.jpg',
+            preview: '../static/image/filter-hazyDays.jpg',
             desc: '这一刻 更朦胧',
           },
           {
             name: 'crossProcess',
-            preview: '/image/filter-crossProcess.jpg',
+            preview: '../static/image/filter-crossProcess.jpg',
             desc: '怀旧电影',
           },
           {
             name: 'concentrate',
-            preview: '/image/filter-concentrate.jpg',
+            preview: '../static/image/filter-concentrate.jpg',
             desc: '美式咖啡',
           },
           {
             name: 'jarques',
-            preview: '/image/filter-jarques.jpg',
+            preview: '../static/image/filter-jarques.jpg',
             desc: '抑郁深蓝',
           },
         ],
