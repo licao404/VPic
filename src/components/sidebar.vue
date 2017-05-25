@@ -199,6 +199,21 @@
             preview: './static/image/filter-jarques.jpg',
             desc: '抑郁深蓝',
           },
+          {
+            name: 'nostalgia',
+            preview: './static/image/filter-nostalgia.jpg',
+            desc: '泛黄记忆',
+          },
+          {
+            name: 'pinhole',
+            preview: './static/image/filter-pinhole.jpg',
+            desc: '黑白胶片',
+          },
+          {
+            name: 'sinCity',
+            preview: './static/image/filter-sinCity.jpg',
+            desc: '水墨印染',
+          },
         ],
       };
     },
