@@ -28,9 +28,7 @@ export default new Vuex.Store({
       noise: 0,
       sharpen: 0,
     },
-    imgFilter: {
-      sunrise: false,
-    },
+    imgFilter: '',
     storeUrl: '',
   },
   getters: {
@@ -95,8 +93,8 @@ export default new Vuex.Store({
     setSharpen(state, val) {
       state.imgArguments.sharpen = val;
     },
-    testFilter(state, val) {
-      state.imgFilter.sunrise = val;
+    setFilter(state, val) {
+      state.imgFilter = val;
     },
   },
   actions: {
@@ -159,6 +157,9 @@ export default new Vuex.Store({
     },
     testFilter({ commit }, val) {
       commit('testFilter', val);
+    },
+    setFilter({ commit }, val) {
+      commit('setFilter', val);
     },
   },
 });

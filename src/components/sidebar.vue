@@ -133,9 +133,14 @@
       </el-submenu>
       <el-submenu index="4">
         <template slot="title"><i class="my-icon-filter my-icon"></i>滤镜</template>
-          <el-menu-item index="4-1">
-            <el-switch v-model="sunrise" on-text="on" off-text="off" @change="testFilter" on-color="#7D5CFF"></el-switch>
-          </el-menu-item>
+            <el-row :gutter="5" class="filter-ct">
+              <el-col :span="12" v-for="item in filterList">
+                <div class="filter" :data-filter="item.name" @click="setFilter">
+                  <img class="filter-preview" :src="item.preview">
+                  <p class="filter-name">{{ item.desc }}</p>
+                </div>
+              </el-col>
+            </el-row>
       </el-submenu>
     </el-menu>
   </el-col>
@@ -143,6 +148,8 @@
 </template>
 
 <script>
+  import $ from 'jquery';
+
   export default {
     data() {
       return {
@@ -156,6 +163,43 @@
         noise: 0,
         sharpen: 0,
         sunrise: false,
+        filterList: [
+          {
+            name: 'sunrise',
+            preview: '../../static/image/filter-sunrise.jpg',
+            desc: '日出辉映',
+          },
+          {
+            name: 'lomo',
+            preview: '../../static/image/filter-lomo.jpg',
+            desc: 'Lomo风格',
+          },
+          {
+            name: 'clarity',
+            preview: '../../static/image/filter-clarity.jpg',
+            desc: '这一刻 更清晰',
+          },
+          {
+            name: 'hazyDays',
+            preview: '../../static/image/filter-hazyDays.jpg',
+            desc: '这一刻 更朦胧',
+          },
+          {
+            name: 'crossProcess',
+            preview: '../../static/image/filter-crossProcess.jpg',
+            desc: '怀旧电影',
+          },
+          {
+            name: 'concentrate',
+            preview: '../../static/image/filter-concentrate.jpg',
+            desc: '美式咖啡',
+          },
+          {
+            name: 'jarques',
+            preview: '../../static/image/filter-jarques.jpg',
+            desc: '抑郁深蓝',
+          },
+        ],
       };
     },
     methods: {
@@ -204,8 +248,11 @@
       setSharpen() {
         this.$store.dispatch('setSharpen', this.sharpen);
       },
-      testFilter() {
-        this.$store.dispatch('testFilter', this.sunrise);
+      setFilter(e) {
+        const $target = $(e.currentTarget);
+        const filterType = $target.data('filter');
+
+        this.$store.dispatch('setFilter', filterType);
       },
       saveResult() {
         const imgUrl = this.$store.state.storeUrl;
@@ -263,4 +310,29 @@
   .my-icon-blur { background: url('../../static/sprites/blur.png'); background-size: 24px 24px; }
   .my-icon-fun { background: url('../../static/sprites/fun.png'); background-size: 24px 24px; }
   .my-icon-filter { background: url('../../static/sprites/filter.png'); background-size: 24px 24px; }
+
+  .filter-preview, .filter-ct {
+    width: 100%;
+  }
+  .filter-preview {
+    display: block;
+  }
+  .filter {
+    position: relative;
+    right: -10px;
+    margin-top: 15px;
+    width: 90%;
+
+  }
+  .filter:hover {
+    box-shadow: 0 4px 8px 0 rgba(151, 168, 190, 0.6);
+  }
+  .filter-name {
+    display: block;
+    margin: 0;
+    padding: 5px 0;
+    font-size: 14px;
+    background: #fff;
+    color: #333;
+  }
 </style>

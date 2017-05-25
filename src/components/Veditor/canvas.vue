@@ -69,8 +69,8 @@
       vSharpen() {
         return this.$store.state.imgArguments.sharpen;
       },
-      vSunrise() {
-        return this.$store.state.imgFilter.sunrise;
+      vFilter() {
+        return this.$store.state.imgFilter;
       },
     },
     watch: {
@@ -118,9 +118,9 @@
           this.setSharpen(sharpen);
         }
       },
-      vSunrise(sunrise) {
+      vFilter(filter) {
         if (this.uploaded) {
-          this.setSunrise(sunrise);
+          this.setFilter(filter);
         }
       },
     },
@@ -193,22 +193,17 @@
           self.$store.dispatch('storeResult', imgUrl);
         });
       },
-      setSunrise(sunrise) {
-        if (sunrise) {
-          const self = this;
-          let imgUrl = '';
-          console.log(1);
-          this.imgPaper = caman('.cropper-canvas .canvas-img');
-          this.imgPaper.revert(true);
-          this.imgPaper.love();
-          this.imgPaper.render(() => {
-            imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
-            self.$store.dispatch('storeResult', imgUrl);
-          });
-        } else {
-          this.imgPaper = caman('.cropper-canvas .canvas-img');
-          this.imgPaper.revert(true);
-        }
+      setFilter(filter) {
+        const self = this;
+        let imgUrl = '';
+
+        this.imgPaper = caman('.cropper-canvas .canvas-img');
+        this.imgPaper.revert(true);
+        this.imgPaper[filter]();
+        this.imgPaper.render(() => {
+          imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
+          self.$store.dispatch('setImgUrl', imgUrl);
+        });
       },
       initPaper() {
         const imgMsg = this.$store.state.imgMsg;
