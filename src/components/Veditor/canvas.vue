@@ -69,6 +69,9 @@
       vSharpen() {
         return this.$store.state.imgArguments.sharpen;
       },
+      vSunrise() {
+        return this.$store.state.imgFilter.sunrise;
+      },
     },
     watch: {
       editable(show) {
@@ -113,6 +116,11 @@
       vSharpen(sharpen) {
         if (this.uploaded) {
           this.setSharpen(sharpen);
+        }
+      },
+      vSunrise(sunrise) {
+        if (this.uploaded) {
+          this.setSunrise(sunrise);
         }
       },
     },
@@ -184,6 +192,23 @@
           imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
           self.$store.dispatch('storeResult', imgUrl);
         });
+      },
+      setSunrise(sunrise) {
+        if (sunrise) {
+          const self = this;
+          let imgUrl = '';
+          console.log(1);
+          this.imgPaper = caman('.cropper-canvas .canvas-img');
+          this.imgPaper.revert(true);
+          this.imgPaper.love();
+          this.imgPaper.render(() => {
+            imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
+            self.$store.dispatch('storeResult', imgUrl);
+          });
+        } else {
+          this.imgPaper = caman('.cropper-canvas .canvas-img');
+          this.imgPaper.revert(true);
+        }
       },
       initPaper() {
         const imgMsg = this.$store.state.imgMsg;

@@ -133,6 +133,9 @@
       </el-submenu>
       <el-submenu index="4">
         <template slot="title"><i class="my-icon-filter my-icon"></i>滤镜</template>
+          <el-menu-item index="4-1">
+            <el-switch v-model="sunrise" on-text="on" off-text="off" @change="testFilter" on-color="#7D5CFF"></el-switch>
+          </el-menu-item>
       </el-submenu>
     </el-menu>
   </el-col>
@@ -152,6 +155,7 @@
         blur: 0,
         noise: 0,
         sharpen: 0,
+        sunrise: false,
       };
     },
     methods: {
@@ -199,6 +203,9 @@
       },
       setSharpen() {
         this.$store.dispatch('setSharpen', this.sharpen);
+      },
+      testFilter() {
+        this.$store.dispatch('testFilter', this.sunrise);
       },
       saveResult() {
         const imgUrl = this.$store.state.storeUrl;
