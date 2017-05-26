@@ -1,7 +1,10 @@
 <template>
   <ul class="action-list fr" @click="click">
     <li class="fr">
-      <a :href="url" :download="name" class="save-btn btn" title="下载保存" v-show="url"><span class="icon"></span></a :href="url">
+      <a :href="github" target="_blank" class="github-btn btn" title="项目地址"><span class="icon"></span></a>
+    </li>
+    <li class="fr">
+      <a :href="url" :download="name" class="save-btn btn" title="下载保存" v-show="url"><span class="icon"></span></a>
     </li>
     <li class="fr">
       <button data-action="crop" class="crop-btn btn" title="确认剪裁" v-show="cropping"><span class="icon"></span></button>
@@ -16,6 +19,11 @@
 </template>
 <script>
   export default {
+    data() {
+      return {
+        github: 'https://github.com/licao404/VPic',
+      };
+    },
     computed: {
       uploaded() {
         return this.$store.state.uploaded;
@@ -67,10 +75,11 @@
   .action-list { height: 100%; }
   .action-list .btn { display: inline-block; width: 60px; height: 60px; line-height: 60px; background: #324057; }
   .action-list .btn:hover { background: #1f2f3d; }
-  .action-list .save-btn:hover { background: #7D5CFF; }
+  .action-list .github-btn:hover { background: #7D5CFF; }
   .action-list .btn .icon { display: inline-block; width: 16px; height: 16px; }
   .action-list .save-btn .icon { background: url('../../../static/sprites/save.png'); }
   .action-list .delete-btn .icon { background: url('../../../static/sprites/delete.png'); }
   .action-list .cancel-btn .icon { background: url('../../../static/sprites/cancel.png'); }
   .action-list .crop-btn .icon { background: url('../../../static/sprites/ok.png'); }
+  .action-list .github-btn .icon { background: url('../../../static/sprites/github.png'); }
 </style>

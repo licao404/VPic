@@ -106,11 +106,20 @@
     #vpic_sidebar {
       position: absolute;
       top: 100px;
-      bottom: 0;
+      bottom: 30px;
       left: 0;
       width: 100%;
       background: #324057;
       overflow: auto;
+    }
+
+    .project-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 30px;
+      background: #7759ee;
     }
 
     #vmain {
