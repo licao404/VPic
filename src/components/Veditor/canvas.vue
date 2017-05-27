@@ -80,13 +80,20 @@
         this.initPaper();
       },
       lisenActionType(type) {
+        const actionType = type.actionType;
         const actionMap = {
           remove: this.remove,
           clear: this.clear,
           crop: this.crop,
+          cropModel: this.changeModel,
+          moveModel: this.changeModel,
+          'rotate-right': this.changeModel,
+          'rotate-left': this.changeModel,
+          'flip-vertical': this.changeModel,
+          'flip-horizontal': this.changeModel,
         };
 
-        actionMap[type.actionType]();
+        actionMap[actionType](actionType);
       },
       vGrayscale(grayscale) {
         if (this.uploaded) {
@@ -217,30 +224,31 @@
           this.start();
         }
       },
-      click(e) {
+      changeModel(actionType) {
         const cropper = this.$store.state.cropper;
-        const target = e.target;
-        let action = '';
+        const type = this.type;
+        let imgUrl = '';
 
         if (!cropper) {
           return;
         }
 
-        action = target.dataset.action || target.parentNode.dataset.action;
-
-        switch (action) {
-          case 'move':
-          case 'crop':
-            cropper.setDragMode(action);
+        switch (actionType) {
+          case 'moveModel':
+            cropper.setDragMode('move');
             break;
 
-          case 'zoom-in':
-            cropper.zoom(0.1);
+          case 'cropModel':
+            cropper.setDragMode('crop');
             break;
 
-          case 'zoom-out':
-            cropper.zoom(-0.1);
-            break;
+          // case 'zoom-in':
+          //   cropper.zoom(0.1);
+          //   break;
+
+          // case 'zoom-out':
+          //   cropper.zoom(-0.1);
+          //   break;
 
           case 'rotate-left':
             cropper.rotate(-90);
@@ -261,6 +269,16 @@
           default:
             break;
         }
+
+        this.data = cropper.getData();
+        this.canvasData = cropper.getCanvasData();
+        this.cropBoxData = cropper.getCropBoxData();
+        this.url = cropper.getCroppedCanvas(type === 'image/png' ? null : {
+          fillColor: '#fff',
+        }).toDataURL(type);
+        imgUrl = this.url;
+
+        this.$store.dispatch('setImgUrl', imgUrl);
       },
       keydown(e) {
         const cropper = this.$store.state.cropper;

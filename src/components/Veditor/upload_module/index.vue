@@ -2,18 +2,14 @@
   <div class="upload" v-if="!uploaded" @change="change" @dragover="dragover" @drop="drop">
     <el-dialog title="图片导入" :visible.sync="dialogTableVisible">
       <el-row :gutter="10">
-        <el-col :span="8"><img class="select-img" data-width="2000" data-height="1125" @click="selectImg" src="../../../../static/image/test-1.jpg"></el-col>
-        <el-col :span="8"><img class="select-img" data-width="1600" data-height="900" @click="selectImg" src="../../../../static/image/test-2.jpg"></el-col>
-        <el-col :span="8"><img class="select-img" data-width="4871" data-height="3237" @click="selectImg" src="../../../../static/image/test-3.jpg"></el-col>
-      </el-row>
-      <el-row :gutter="10">
-        <el-col :span="8"><img class="select-img" data-width="1920" data-height="1080" @click="selectImg" src="../../../../static/image/test-4.jpg"></el-col>
-        <el-col :span="8"><img class="select-img" data-width="1920" data-height="1200" @click="selectImg" src="../../../../static/image/test-5.jpg"></el-col>
-        <el-col :span="8"><img class="select-img" data-width="2560" data-height="1440" @click="selectImg" src="../../../../static/image/test-6.jpg"></el-col>
-      </el-row>
-      <el-row :gutter="10">
-        <el-col :span="8"><img class="select-img" data-width="2048" data-height="1367" @click="selectImg" src="../../../../static/image/test-7.jpg"></el-col>
-        <el-col :span="8"><img class="select-img" data-width="1600" data-height="900" @click="selectImg" src="../../../../static/image/test-8.jpg"></el-col>
+        <el-col :span="8" v-for="item in preChoiseImg">
+          <img class="select-img"
+              :data-width="item.width"
+              :data-height="item.height"
+              :src="item.src"
+              :data-name="item.name"
+              @click="selectImg">
+        </el-col>
         <el-col :span="8">
           <div class="upload-btn J-upload" title="选择本地图片">
             <span class="upload-icon"></span>
@@ -40,7 +36,59 @@
     },
     data() {
       return {
+        // 预选图片弹窗状态
         dialogTableVisible: false,
+        // 系统预选图片 Map
+        preChoiseImg: [
+          {
+            width: '1600',
+            height: '900',
+            name: 'test-1.jpg',
+            src: './static/image/test-1.jpg',
+          },
+          {
+            width: '1600',
+            height: '900',
+            name: 'test-2.jpg',
+            src: './static/image/test-2.jpg',
+          },
+          {
+            width: '1600',
+            height: '900',
+            name: 'test-3.jpg',
+            src: './static/image/test-3.jpg',
+          },
+          {
+            width: '1600',
+            height: '900',
+            name: 'test-4.jpg',
+            src: './static/image/test-4.jpg',
+          },
+          {
+            width: '1600',
+            height: '900',
+            name: 'test-5.jpg',
+            src: './static/image/test-5.jpg',
+          },
+          {
+            width: '1600',
+            height: '900',
+            name: 'test-6.jpg',
+            src: './static/image/test-6.jpg',
+          },
+          {
+            width: '1600',
+            height: '900',
+            name: 'test-7.jpg',
+            src: './static/image/test-7.jpg',
+          },
+          {
+            width: '1600',
+            height: '900',
+            name: 'test-8.jpg',
+            src: './static/image/test-8.jpg',
+          },
+        ],
       };
     },
     computed: {
@@ -51,26 +99,49 @@
     methods: {
       read(file, callback = () => {}) {
         const imgReg = /^image\/\w+$/;
+        const imgMaxSize = 3; // 上传图片最大体积，单位 mb
+        const imgWarnSize = 0.8; // 上传图片警戒体积，单位 mb
         let reader = null;
 
         if (file) {
           if (imgReg.test(file.type)) {
-            reader = new FileReader(); // 实例化 Web Api FileReader
+            // fileReader读取的文件体积单位为字节 b
+            const imgSize = file.size / (1024 * 1024);
 
-            reader.onload = () => {
-              // 上传区域置空
-              this.$store.dispatch('setUpload');
-              // store传递类型以及文件信息
-              this.$store.dispatch('setImgMsg', {
-                type: file.type,
-                name: file.name,
-                url: reader.result,
+            if (imgSize < imgMaxSize) {
+              if (imgSize > imgWarnSize) {
+                this.$notify({
+                  title: '提示',
+                  message: '图片体积过大 处理速度可能会下降',
+                  type: 'warning',
+                  duration: 4000,
+                  offset: 120,
+                });
+              }
+
+              reader = new FileReader(); // 实例化 Web Api FileReader
+
+              reader.onload = () => {
+                // 上传区域置空
+                this.$store.dispatch('setUpload');
+                // store传递类型以及文件信息
+                this.$store.dispatch('setImgMsg', {
+                  type: file.type,
+                  name: file.name,
+                  url: reader.result,
+                });
+
+                callback();
+              };
+
+              reader.readAsDataURL(file);
+            } else {
+              this.$message({
+                message: '图片体积须低于3M 请重新选择',
+                type: 'warning',
               });
-
               callback();
-            };
-
-            reader.readAsDataURL(file);
+            }
           } else {
             this.$message({
               message: '请选择图片文件',
@@ -95,20 +166,20 @@
       },
       drop(e) {
         const files = e.dataTransfer.files;
-
         e.preventDefault();
         this.read(files && files[0]);
       },
       selectImg(e) {
         const target = e.target;
         const url = this.getBase64Image(target);
+        const name = target.dataset.name;
 
         // 上传区域置空
         this.$store.dispatch('setUpload');
         // store传递类型以及文件信息
         this.$store.dispatch('setImgMsg', {
           type: 'image/jpeg',
-          name: 'test',
+          name,
           url,
         });
       },
@@ -182,10 +253,15 @@
     border-radius: 4px;
     cursor: pointer;
   }
+  .el-dialog__body {
+    padding: 20px;
+  }
   .select-img,
   .upload-btn {
+    margin-bottom: 10px;
     width: 100%;
     height: 108px;
+    vertical-align: top;
   }
   .upload-btn {
     position: relative;
