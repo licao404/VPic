@@ -89,7 +89,8 @@
     },
     methods: {
       click(e) {
-        const actionType = e.target.dataset.action;
+        const target = e.target;
+        const actionType = target.dataset.action || target.parentNode.dataset.action;
 
         if (actionType) {
           this.$store.dispatch('setActionType', {

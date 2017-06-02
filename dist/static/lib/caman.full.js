@@ -259,7 +259,7 @@
     Caman.autoload = !Caman.NodeJS;
 
     Caman.toString = function () {
-      return `Version ${Caman.version.release }, Released ${Caman.version.date}`;
+      return `Version ${Caman.version.release}, Released ${Caman.version.date}`;
     };
 
     Caman.getAttrId = function (canvas) {
@@ -323,22 +323,18 @@
       let listener,
         _this = this;
       if (Caman.NodeJS) {
-        return setTimeout(() => {
-          return cb.call(_this);
-        }, 0);
+        return setTimeout(() => cb.call(_this), 0);
       }
       if (document.readyState === 'complete') {
-          Log.debug('DOM initialized');
-          return setTimeout(() => {
-            return cb.call(_this);
-          }, 0);
-        }
+        Log.debug('DOM initialized');
+        return setTimeout(() => cb.call(_this), 0);
+      }
       listener = function () {
-          if (document.readyState === 'complete') {
-            Log.debug('DOM initialized');
-            return cb.call(_this);
-          }
-        };
+        if (document.readyState === 'complete') {
+          Log.debug('DOM initialized');
+          return cb.call(_this);
+        }
+      };
       return document.addEventListener('readystatechange', listener, false);
     };
 
@@ -438,7 +434,7 @@
       }
       this.image = new Image();
       this.image.src = data;
-      Log.debug(`Image loaded. Width = ${ this.imageWidth() }, Height = ${this.imageHeight()}`);
+      Log.debug(`Image loaded. Width = ${this.imageWidth()}, Height = ${this.imageHeight()}`);
       this.canvas = new Canvas(this.imageWidth(), this.imageHeight());
       return this.finishInit();
     };
@@ -606,13 +602,13 @@
       }
       ratio = this.hiDPIRatio();
       if (ratio !== 1) {
-        Log.debug(`HiDPI ratio = ${ ratio}`);
+        Log.debug(`HiDPI ratio = ${ratio}`);
         this.scaled = true;
         this.preScaledWidth = this.canvas.width;
         this.preScaledHeight = this.canvas.height;
         this.canvas.width = this.preScaledWidth * ratio;
         this.canvas.height = this.preScaledHeight * ratio;
-        this.canvas.style.width = `${ this.preScaledWidth }px`;
+        this.canvas.style.width = `${this.preScaledWidth}px`;
         this.canvas.style.height = `${this.preScaledHeight}px`;
         this.context.scale(ratio, ratio);
         this.width = this.originalWidth = this.canvas.width;
@@ -982,7 +978,7 @@
       for (_i = 0, _len = unparsedInstructions.length; _i < _len; _i++) {
         inst = unparsedInstructions[_i];
         _ref = inst.match(r), m = _ref[0], filter = _ref[1], args = _ref[2];
-        instFunc = new Function(`return function() {        this.${filter }(${args});      };`);
+        instFunc = new Function(`return function() {        this.${filter}(${args});      };`);
         try {
           func = instFunc();
           _results.push(func.call(this.caman));
@@ -1693,7 +1689,7 @@
     };
 
     IO.proxyUrl = function (src) {
-      return `${ Caman.remoteProxy}?${ Caman.proxyParam}=${encodeURIComponent(src)}`;
+      return `${Caman.remoteProxy}?${Caman.proxyParam}=${encodeURIComponent(src)}`;
     };
 
     IO.useProxy = function (lang) {
@@ -1708,7 +1704,7 @@
       if (langToExt[lang] != null) {
         lang = langToExt[lang];
       }
-      return `proxies/caman_proxy.${ lang}`;
+      return `proxies/caman_proxy.${lang}`;
     };
 
     return IO;
@@ -1727,7 +1723,7 @@
       type = 'png';
     }
     type = type.toLowerCase();
-    image = this.toBase64(type).replace(`image/${ type}`, 'image/octet-stream');
+    image = this.toBase64(type).replace(`image/${type}`, 'image/octet-stream');
     return document.location.href = image;
   };
 
@@ -2035,7 +2031,7 @@
       if (includeAlpha == null) {
         includeAlpha = false;
       }
-      hex = `#${this.r.toString(16) }${this.g.toString(16) }${this.b.toString(16)}`;
+      hex = `#${this.r.toString(16)}${this.g.toString(16)}${this.b.toString(16)}`;
       if (includeAlpha) {
         return hex + this.a.toString(16);
       }
@@ -2165,7 +2161,7 @@
     Renderer.prototype.executePlugin = function () {
       Log.debug(`Executing plugin ${this.currentJob.plugin}`);
       Plugin.execute(this.c, this.currentJob.plugin, this.currentJob.args);
-      Log.debug(`Plugin ${ this.currentJob.plugin } finished!`);
+      Log.debug(`Plugin ${this.currentJob.plugin} finished!`);
       return this.processNext();
     };
 
@@ -2173,7 +2169,7 @@
       let i,
         pixel,
         _i;
-      Log.debug(`Block #${  bnum  } - Filter: ${  this.currentJob.name  }, Start: ${  start  }, End: ${  end}`);
+      Log.debug(`Block #${bnum} - Filter: ${this.currentJob.name}, Start: ${start}, End: ${end}`);
       Event.trigger(this.c, 'blockStarted', {
         blockNum: bnum,
         totalBlocks: Renderer.Blocks,
@@ -2226,7 +2222,7 @@
       adjust = this.currentJob.adjust;
       adjustSize = Math.sqrt(adjust.length);
       kernel = [];
-      Log.debug(`Rendering kernel - Filter: ${  this.currentJob.name}`);
+      Log.debug(`Rendering kernel - Filter: ${this.currentJob.name}`);
       start = Math.max(start, this.c.dimensions.width * 4 * ((adjustSize - 1) / 2));
       end = Math.min(end, n - (this.c.dimensions.width * 4 * ((adjustSize - 1) / 2)));
       builder = (adjustSize - 1) / 2;
@@ -2261,7 +2257,7 @@
         _i,
         _ref;
       if (bnum >= 0) {
-        Log.debug(`Block #${bnum } finished! Filter: ${this.currentJob.name}`);
+        Log.debug(`Block #${bnum} finished! Filter: ${this.currentJob.name}`);
       }
       this.blocksDone++;
       Event.trigger(this.c, 'blockFinished', {
@@ -2276,7 +2272,7 @@
           }
         }
         if (bnum >= 0) {
-          Log.debug(`Filter ${this.currentJob.name } finished!`);
+          Log.debug(`Filter ${this.currentJob.name} finished!`);
         }
         Event.trigger(this.c, 'processComplete', this.currentJob);
         return this.processNext();

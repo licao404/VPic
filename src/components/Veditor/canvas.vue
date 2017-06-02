@@ -1,6 +1,6 @@
 <template>
   <div class="canvas" v-show="editable">
-    <div @dblclick="dblclick" class="editor">
+    <div @dblclick="dblclick" class="editor" v-loading="loading" element-loading-text="滤镜计算中 ···">
         <template v-if="url"><img :src="url" :alt="name" @load="load"></template>
     </div>
   </div>
@@ -25,6 +25,7 @@
         name: '',
         url: '',
         originalUrl: '',
+        loading: false,
       };
     },
     mounted() {
@@ -133,83 +134,96 @@
     },
     methods: {
       setArgument(val) {
-        const self = this;
+        // const self = this;
         let imgUrl = '';
 
-        this.imgPaper = caman('.cropper-canvas .canvas-img');
-        this.imgPaper.revert(false);
-        $.map(val, (v, k) => {
-          this.imgPaper[k](v);
+        this.imgPaper = caman('.cropper-canvas .canvas-img', () => {
+          this.imgPaper.revert(false);
+          $.map(val, (v, k) => {
+            this.imgPaper[k](v);
+          });
+          this.imgPaper.render(() => {
+            // render后回调，存储处理后的图像
+            imgUrl = this.imgPaper.toBase64(this.$store.state.imgMsg.type);
+            this.$store.dispatch('storeResult', imgUrl);
+          });
         });
-        this.imgPaper.render(() => {
-          // render后回调，存储处理后的图像
-          imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
-          // self.$store.dispatch('setImgUrl', imgUrl);
-          self.$store.dispatch('storeResult', imgUrl);
-        });
+        // this.imgPaper.revert(false);
+        // $.map(val, (v, k) => {
+        //   this.imgPaper[k](v);
+        // });
+        // this.imgPaper.render(() => {
+        //   // render后回调，存储处理后的图像
+        //   imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
+        //   // self.$store.dispatch('setImgUrl', imgUrl);
+        //   self.$store.dispatch('storeResult', imgUrl);
+        // });
       },
       setInvert(invert) {
-        const self = this;
         let imgUrl = '';
 
-        this.imgPaper = caman('.cropper-canvas .canvas-img');
-        this.imgPaper.revert(true);
-        $.map(invert, (v, k) => {
-          if (v) {
-            this.imgPaper[k]();
-          }
-        });
-        this.imgPaper.render(() => {
-          imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
-          self.$store.dispatch('storeResult', imgUrl);
+        this.imgPaper = caman('.cropper-canvas .canvas-img', () => {
+          this.imgPaper.revert(false);
+          $.map(invert, (v, k) => {
+            if (v) {
+              this.imgPaper[k]();
+            }
+          });
+          this.imgPaper.render(() => {
+            // render后回调，存储处理后的图像
+            imgUrl = this.imgPaper.toBase64(this.$store.state.imgMsg.type);
+            this.$store.dispatch('storeResult', imgUrl);
+          });
         });
       },
       setBlur(blur) {
-        const self = this;
         let imgUrl = '';
 
-        this.imgPaper = caman('.cropper-canvas .canvas-img');
-        this.imgPaper.revert(false);
-        this.imgPaper.stackBlur(blur);
-        this.imgPaper.render(() => {
-          imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
-          self.$store.dispatch('storeResult', imgUrl);
+        this.imgPaper = caman('.cropper-canvas .canvas-img', () => {
+          this.imgPaper.revert(false);
+          this.imgPaper.stackBlur(blur);
+          this.imgPaper.render(() => {
+            imgUrl = this.imgPaper.toBase64(this.$store.state.imgMsg.type);
+            this.$store.dispatch('storeResult', imgUrl);
+          });
         });
       },
       setNoise(noise) {
-        const self = this;
         let imgUrl = '';
 
-        this.imgPaper = caman('.cropper-canvas .canvas-img');
-        this.imgPaper.revert(false);
-        this.imgPaper.noise(noise);
-        this.imgPaper.render(() => {
-          imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
-          self.$store.dispatch('storeResult', imgUrl);
+        this.imgPaper = caman('.cropper-canvas .canvas-img', () => {
+          this.imgPaper.revert(false);
+          this.imgPaper.noise(noise);
+          this.imgPaper.render(() => {
+            imgUrl = this.imgPaper.toBase64(this.$store.state.imgMsg.type);
+            this.$store.dispatch('storeResult', imgUrl);
+          });
         });
       },
       setSharpen(sharpen) {
-        const self = this;
         let imgUrl = '';
 
-        this.imgPaper = caman('.cropper-canvas .canvas-img');
-        this.imgPaper.revert(false);
-        this.imgPaper.sharpen(sharpen);
-        this.imgPaper.render(() => {
-          imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
-          self.$store.dispatch('storeResult', imgUrl);
+        this.imgPaper = caman('.cropper-canvas .canvas-img', () => {
+          this.imgPaper.revert(false);
+          this.imgPaper.sharpen(sharpen);
+          this.imgPaper.render(() => {
+            imgUrl = this.imgPaper.toBase64(this.$store.state.imgMsg.type);
+            this.$store.dispatch('storeResult', imgUrl);
+          });
         });
       },
       setFilter(filter) {
-        const self = this;
         let imgUrl = '';
+        this.loading = true;
 
-        this.imgPaper = caman('.cropper-canvas .canvas-img');
-        this.imgPaper.revert(true);
-        this.imgPaper[filter]();
-        this.imgPaper.render(() => {
-          imgUrl = self.imgPaper.toBase64(self.$store.state.imgMsg.type);
-          self.$store.dispatch('setImgUrl', imgUrl);
+        this.imgPaper = caman('.cropper-canvas .canvas-img', () => {
+          this.imgPaper.revert(true);
+          this.imgPaper[filter]();
+          this.imgPaper.render(() => {
+            imgUrl = this.imgPaper.toBase64(this.$store.state.imgMsg.type);
+            this.$store.dispatch('setImgUrl', imgUrl);
+            this.loading = false;
+          });
         });
       },
       initPaper() {
@@ -224,6 +238,7 @@
           this.start();
         }
       },
+      // 剪切和移动模式切换
       changeModel(actionType) {
         const cropper = this.$store.state.cropper;
         const type = this.type;
@@ -280,113 +295,116 @@
 
         this.$store.dispatch('setImgUrl', imgUrl);
       },
-      keydown(e) {
-        const cropper = this.$store.state.cropper;
-        const key = e.key || e.keyCode || e.which || e.charCode;
+      // 快捷键
+      // keydown(e) {
+      //   const cropper = this.$store.state.cropper;
+      //   const key = e.key || e.keyCode || e.which || e.charCode;
 
-        switch (key) {
+      //   switch (key) {
 
-          // Undo crop (Key: Ctrl + Z)
-          case 90:
-            if (e.ctrlKey) {
-              e.preventDefault();
-              this.restore(true);
-            }
+      //     // Undo crop (Key: Ctrl + Z)
+      //     case 90:
+      //       if (e.ctrlKey) {
+      //         e.preventDefault();
+      //         this.restore(true);
+      //       }
 
-            break;
+      //       break;
 
-              // Delete the image (Key: Delete)
-          case 46:
-            this.remove(true);
-            break;
+      //         // Delete the image (Key: Delete)
+      //     case 46:
+      //       this.remove(true);
+      //       break;
 
-          default:
-            break;
-        }
+      //     default:
+      //       break;
+      //   }
 
-        if (!cropper) {
-          return;
-        }
+      //   if (!cropper) {
+      //     return;
+      //   }
 
-        switch (key) {
-          // Crop the image (Key: Enter)
-          case 13:
-            this.crop(true);
-            break;
+      //   switch (key) {
+      //     // Crop the image (Key: Enter)
+      //     case 13:
+      //       this.crop(true);
+      //       break;
 
-              // Clear crop area (Key: Esc)
-          case 27:
-            this.clear(true);
-            break;
+      //         // Clear crop area (Key: Esc)
+      //     case 27:
+      //       this.clear(true);
+      //       break;
 
-              // Move to the left (Key: ←)
-          case 37:
-            e.preventDefault();
-            cropper.move(-1, 0);
-            break;
+      //         // Move to the left (Key: ←)
+      //     case 37:
+      //       e.preventDefault();
+      //       cropper.move(-1, 0);
+      //       break;
 
-              // Move to the top (Key: ↑)
-          case 38:
-            e.preventDefault();
-            cropper.move(0, -1);
-            break;
+      //         // Move to the top (Key: ↑)
+      //     case 38:
+      //       e.preventDefault();
+      //       cropper.move(0, -1);
+      //       break;
 
-              // Move to the right (Key: →)
-          case 39:
-            e.preventDefault();
-            cropper.move(1, 0);
-            break;
+      //         // Move to the right (Key: →)
+      //     case 39:
+      //       e.preventDefault();
+      //       cropper.move(1, 0);
+      //       break;
 
-              // Move to the bottom (Key: ↓)
-          case 40:
-            e.preventDefault();
-            cropper.move(0, 1);
-            break;
+      //         // Move to the bottom (Key: ↓)
+      //     case 40:
+      //       e.preventDefault();
+      //       cropper.move(0, 1);
+      //       break;
 
-              // Enter crop mode (Key: C)
-          case 67:
-            cropper.setDragMode('crop');
-            break;
+      //         // Enter crop mode (Key: C)
+      //     case 67:
+      //       cropper.setDragMode('crop');
+      //       break;
 
-              // Enter move mode (Key: M)
-          case 77:
-            cropper.setDragMode('move');
-            break;
+      //         // Enter move mode (Key: M)
+      //     case 77:
+      //       cropper.setDragMode('move');
+      //       break;
 
-              // Zoom in (Key: I)
-          case 73:
-            cropper.zoom(0.1);
-            break;
+      //         // Zoom in (Key: I)
+      //     case 73:
+      //       cropper.zoom(0.1);
+      //       break;
 
-              // Zoom out (Key: O)
-          case 79:
-            cropper.zoom(-0.1);
-            break;
+      //         // Zoom out (Key: O)
+      //     case 79:
+      //       cropper.zoom(-0.1);
+      //       break;
 
-              // Rotate left (Key: L)
-          case 76:
-            cropper.rotate(-90);
-            break;
+      //         // Rotate left (Key: L)
+      //     case 76:
+      //       cropper.rotate(-90);
+      //       break;
 
-              // Rotate right (Key: R)
-          case 82:
-            cropper.rotate(90);
-            break;
+      //         // Rotate right (Key: R)
+      //     case 82:
+      //       cropper.rotate(90);
+      //       break;
 
-              // Flip horizontal (Key: H)
-          case 72:
-            cropper.scaleX(-this.$store.state.cropper.getData().scaleX || -1);
-            break;
+      //         // Flip horizontal (Key: H)
+      //     case 72:
+      //       cropper.scaleX(-this.$store.state.cropper.getData().scaleX || -1);
+      //       break;
 
-              // Flip vertical (Key: V)
-          case 86:
-            cropper.scaleY(-this.$store.state.cropper.getData().scaleY || -1);
-            break;
+      //         // Flip vertical (Key: V)
+      //     case 86:
+      //       cropper.scaleY(-this.$store.state.cropper.getData().scaleY || -1);
+      //       break;
 
-          default:
-            break;
-        }
-      },
+      //     default:
+      //       break;
+      //   }
+      // },
+
+      // 鼠标双击事件切换
       dblclick(e) {
         if (e.target.className.indexOf('cropper-face') >= 0) {
           e.preventDefault();
@@ -401,6 +419,7 @@
           return;
         }
 
+        // 新建裁切类的实例
         const cropper = new Cropper(this.image, {
           autoCrop: false,
           dragMode: 'move',
@@ -522,5 +541,8 @@
     max-height: 95%;
     margin: auto;
     vertical-align: middle;
+  }
+  .el-loading-mask {
+    background-color: rgba(0, 0, 0, 0.7);
   }
 </style>
