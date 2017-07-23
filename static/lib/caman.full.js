@@ -2507,6 +2507,7 @@
   });
 
   Filter.register('contrast', function (adjust) {
+    // nRGB = RGB + (RGB - Threshold) * Contrast / 255 //Threshold为给定的阈值，Contrast为处理过的对比度增量。
     adjust = Math.pow((adjust + 100) / 100, 2);
     return this.process('contrast', (rgba) => {
       rgba.r /= 255;

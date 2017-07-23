@@ -1,22 +1,22 @@
 <template>
   <div class="upload" v-if="!uploaded" @change="change" @dragover="dragover" @drop="drop">
     <el-dialog title="图片导入" :visible.sync="dialogTableVisible">
-      <el-row :gutter="10">
-        <el-col :span="8" v-for="item in preChoiseImg">
-          <img class="select-img"
-              :data-width="item.width"
-              :data-height="item.height"
-              :src="item.src"
-              :data-name="item.name"
-              @click="selectImg">
-        </el-col>
-        <el-col :span="8">
-          <div class="upload-btn J-upload" title="选择本地图片">
-            <span class="upload-icon"></span>
-            <input id="file" type="file" accept="image/*" class="sr-only">
-          </div>
-        </el-col>
-      </el-row>
+      <div class="primary-pic-ct chrome-scrollbar">
+        <el-row :gutter="10">
+          <el-col :span="8" v-for="item in preChoiseImg">
+            <img class="select-img"
+                :data-width="item.width"
+                :data-height="item.height"
+                :src="item.src"
+                :data-name="item.name"
+                @click="selectImg">
+          </el-col>
+        </el-row>
+      </div>
+      <div class="upload-btn J-upload" title="选择本地图片">
+        <span class="upload-icon"></span>
+        <input id="file" type="file" accept="image/svg,image/gif,image/png,image/jpeg,image/bmp,image/webp" class="sr-only">
+      </div>
     </el-dialog>
     <div class="import-area J-import" @click="dialogTableVisible = true">
       <span class="icon"></span>
@@ -87,6 +87,12 @@
             height: '900',
             name: 'test-8.jpg',
             src: './static/image/test-8.jpg',
+          },
+          {
+            width: '1600',
+            height: '900',
+            name: 'test-9.jpg',
+            src: './static/image/test-9.jpg',
           },
         ],
       };
@@ -244,6 +250,30 @@
     text-decoration: underline;
   }
 
+  .primary-pic-ct {
+    height: 450px;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .chrome-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    margin-right: 5px;
+  }
+
+  .chrome-scrollbar::-webkit-scrollbar-track {
+    background-color: #eee;
+  }
+
+  .chrome-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, .15);
+  }
+
+  .chrome-scrollbar:hover::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, .25)
+  }
+
   .el-row {
     &:last-child {
       margin-bottom: 0;
@@ -256,16 +286,17 @@
   .el-dialog__body {
     padding: 20px;
   }
-  .select-img,
-  .upload-btn {
+  .select-img {
     margin-bottom: 10px;
     width: 100%;
-    height: 108px;
     vertical-align: top;
   }
   .upload-btn {
     position: relative;
-    line-height: 118px;
+    margin-top: 10px;
+    width: 100%;
+    height: 100px;
+    line-height: 108px;
     border-radius: 10px;
     box-sizing: border-box;
     border: 3px dashed #ccc;
@@ -284,5 +315,16 @@
   }
   .sr-only {
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 1600px) {
+    .primary-pic-ct {
+      height: 300px;
+    }
+
+    .upload-btn{
+      height: 80px;
+      line-height: 88px;
+    }
   }
 </style>
