@@ -280,16 +280,22 @@
     }
   }
   .el-col {
-    border-radius: 4px;
+    margin-bottom: 10px;
+    overflow: auto;
     cursor: pointer;
   }
   .el-dialog__body {
     padding: 20px;
   }
   .select-img {
-    margin-bottom: 10px;
     width: 100%;
     vertical-align: top;
+    transition: 0.5s;
+  }
+  .select-img:hover {
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
   }
   .upload-btn {
     position: relative;
@@ -300,6 +306,10 @@
     border-radius: 10px;
     box-sizing: border-box;
     border: 3px dashed #ccc;
+    transition: 0.2s;
+  }
+  .upload-btn:hover {
+    background: #eee;
   }
   .upload-icon {
     display: inline-block;
