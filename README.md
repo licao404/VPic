@@ -1,4 +1,4 @@
-# VPic
+# [VPic](https://licao404.github.io/VPic/)
 
 > A sharp and light photo editor based on Vue.js 2.0.
 
