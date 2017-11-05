@@ -115,7 +115,7 @@
   .action-list .croping-btn .icon { background: url('../../../static/sprites/ok.png'); }
   .action-list .crop-btn .icon { background: url('../../../static/sprites/crop.png'); }
   .action-list .move-btn .icon { background: url('../../../static/sprites/move.png'); }
-  .action-list .rotater-btn .icon { background: url('../../../static/sprites/rotater.png'); }
+  .action-list .rotater-btn .icon { background: url('../../../static/sprites/rotateR.png'); }
   .action-list .rotatel-btn .icon { background: url('../../../static/sprites/rotatel.png'); }
   .action-list .flip-horizontal-btn .icon { background: url('../../../static/sprites/flip_horizontal.png'); }
   .action-list .flip-vertical-btn .icon { background: url('../../../static/sprites/flip_vertical.png'); }
